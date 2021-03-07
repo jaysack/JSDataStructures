@@ -1,0 +1,4 @@
+os: osx
+osx_language: xcode12
+language: swift
+script: swift test
