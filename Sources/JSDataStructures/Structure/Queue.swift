@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct Queue<T> {
+public struct Queue<T> {
     
     // MARK: - Properties
     private var elements: [T] = []
