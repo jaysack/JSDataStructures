@@ -1,14 +1,21 @@
 
 import Foundation
 
-struct DoublyLinkedList<T: Equatable> {
+public struct DoublyLinkedList<T: Equatable> {
     
+    // MARK: - Init
+    public init() {
+        head = nil
+        tail = nil
+        count = 0
+    }
+
     // MARK: - Nodes
     private var head: Node<T>?
     private var tail: Node<T>?
 
     // MARK: - Properties
-    public var count: Int = 0
+    public var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
     public var hasSoloItem: Bool { return head === tail && tail != nil }
@@ -216,7 +223,7 @@ struct DoublyLinkedList<T: Equatable> {
 // MARK: - EXT. Custom String Convertible
 extension DoublyLinkedList: CustomStringConvertible {
 
-    var description: String {
+    public var description: String {
         guard let head = head else { return "EMPTY DOUBLY LINKED LIST" }
         return "DOUBLY LINKED LIST: \(count) || " + String(describing: head)
     }

@@ -3,8 +3,13 @@ import Foundation
 
 struct Stack<T> {
 
+    // MARK: - Init
+    public init() {
+        self.elements = []
+    }
+
     // MARK: - Properties
-    private var elements: [T] = []
+    private var elements: [T]
     public var peek: T? { return elements.last }
     public var isEmpty: Bool { return elements.isEmpty }
     public var count: Int { return elements.count }

@@ -1,7 +1,7 @@
 os: osx
 osx_language: xcode12
 language: swift
-script: swift test
+script: 'xcodebuild clean build test -project JSDataStructures.xcodeproj'
 notifications:
   email:
     recipients:
