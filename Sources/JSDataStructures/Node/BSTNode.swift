@@ -4,7 +4,7 @@ import Foundation
 final public class BSTNode<T>: TreeNode<T> {
 
     // MARK: - Init
-    override init(_ value: T) {
+    public override init(_ value: T) {
         super.init(value)
     }
 

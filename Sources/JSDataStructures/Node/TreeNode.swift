@@ -4,7 +4,7 @@ import Foundation
 public class TreeNode<T> {
     
     // MARK: - Init
-    init(_ value: T) {
+    public init(_ value: T) {
         self.value = value
         self.elements = []
     }
