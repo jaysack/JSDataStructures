@@ -26,7 +26,8 @@ struct Stack<T> {
 extension Stack: CustomStringConvertible {
 
     var description: String {
-        let divider = "--\n"
+        guard !isEmpty else { return "EMPTY STACK" }
+        let divider = "STACK: \(count) || \n--\n"
         let elementsPrintout = elements.map { "\($0)\n" }
         return divider + elementsPrintout.joined() + divider
     }

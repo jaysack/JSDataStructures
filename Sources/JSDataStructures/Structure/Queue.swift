@@ -30,3 +30,12 @@ public struct Queue<T> {
             return head
         }
 }
+
+// MARK: - EXT. Custom String Convertible
+extension Queue: CustomStringConvertible {
+
+    public var description: String {
+        guard !isEmpty else { return "EMPTY QUEUE" }
+        return "QUEUE: \(count) || \(elements)"
+    }
+}
