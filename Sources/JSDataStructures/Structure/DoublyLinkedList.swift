@@ -18,7 +18,7 @@ public struct DoublyLinkedList<T: Equatable> {
     public var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
-    public var hasSoloItem: Bool { return head === tail && tail != nil }
+    public var hasSoloItem: Bool { return head === tail && !isEmpty }
 
     // MARK: - Push
     public mutating func push(_ value: T) {
@@ -226,5 +226,49 @@ extension DoublyLinkedList: CustomStringConvertible {
     public var description: String {
         guard let head = head else { return "EMPTY DOUBLY LINKED LIST" }
         return "DOUBLY LINKED LIST: \(count) || " + String(describing: head)
+    }
+}
+
+// MARK: - Ext. Collection Protocols Helpers
+extension DoublyLinkedList {
+    
+    public struct Index: Comparable {
+        
+        public var node: Node<T>?
+        
+        static public func == (lhs: Index, rhs: Index) -> Bool {
+            switch (lhs.node, rhs.node) {
+            case let (left?, right?):       return left.next === right.next
+            case (nil, nil):                return true
+            default:                        return false
+            }
+        }
+        
+        static public func < (lhs: Index, rhs: Index) -> Bool {
+            guard lhs != rhs else { return false }
+            
+            let nodes = sequence(first: lhs.node) { $0?.next }
+            return nodes.contains { $0 === rhs.node }
+        }
+    }
+}
+
+// MARK: EXT. Collection Conformance Properties
+extension DoublyLinkedList: RandomAccessCollection {
+
+    public var startIndex: Index { return Index(node: head) }
+    public var endIndex: Index { return Index(node: tail) }
+
+    public func index(before i: Index) -> Index {
+        return Index(node: i.node?.prev)
+    }
+
+    public func index(after i: Index) -> Index {
+        return Index(node: i.node?.next)
+    }
+
+    public subscript(position: Index) -> T {
+        precondition(indices.contains(position), "\(String(describing: self)): index \(position) is out-of-bounds")
+        return position.node!.value
     }
 }
