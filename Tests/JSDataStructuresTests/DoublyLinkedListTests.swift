@@ -22,6 +22,7 @@ class DoublyLinkedListTests: XCTestCase {
         sut = nil
     }
     
+    // MARK: - 'count' property tests
     func testDoublyLinkedList_WhenInsertingElement_ShouldIncreaseCount() {
         // Arrange
         assert(sut.count == 4)
@@ -44,6 +45,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertEqual(3, sut.count, "Doubly Linked List count should have been decreased to 3 but it was not")
     }
     
+    // MARK: - 'hasSoloItem' property tests
     func testDoublyLinkedList_WhenCallingHasSoloItemOnEmptyList_ShouldReturnFalse() {
         // Arrange
         sut = DoublyLinkedList<Int>()
@@ -78,6 +80,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertEqual(boolean, true, "Solo item list should have only 1 element")
     }
 
+    // MARK: - 'push' method tests
     func testDoublyLinkedList_WhenPushingAnElement_ShouldUpdateHead() {
         // Arrange
         let oldHead = sut.node(at: 0)
@@ -89,6 +92,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertFalse(oldHead === sut.node(at: 0), "Head node should have been updated after pushing a new element")
     }
 
+    // MARK: - 'append' method tests
     func testDoublyLinkedList_WhenAppendingAnElement_ShouldUpdateTail() {
         // Arrange
         let oldTail = sut.node(at: sut.count - 1)
@@ -100,6 +104,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertFalse(oldTail === sut.node(at: sut.count - 1), "Old tail node should have been updated after appending a new element")
     }
     
+    // MARK: - 'insertAt' method tests
     func testDoublyLinkedList_WhenInsertingAtValidIndex_ShouldReturnTrue() {
         // Arrange
         assert(sut.count > 2)
@@ -115,6 +120,7 @@ class DoublyLinkedListTests: XCTestCase {
         
     }
 
+    // MARK: - 'pop' method tests
     func testDoublyLinkedList_WhenPoppingOnAnEmptyList_ShouldReturnNil() {
         
     }
@@ -139,6 +145,7 @@ class DoublyLinkedListTests: XCTestCase {
         
     }
     
+    // MARK: - 'removeAt' method tests
     func testDoublyLinkedList_WhenRemovingElementAtInvalidIndex_ShouldReturnNil() {
         
     }
@@ -147,6 +154,7 @@ class DoublyLinkedListTests: XCTestCase {
         
     }
 
+    // MARK: - 'nodeAt' method tests
     func testDoublyLinkedList_WhenCallingNodeAtValidIndex_ShouldReturnNodeAtIndex() {
         
     }
@@ -155,6 +163,7 @@ class DoublyLinkedListTests: XCTestCase {
         
     }
 
+    // MARK: - 'contains' method tests
     func testDoublyLinkedList_WhenCallingContainsOnEmptyList_ShouldReturnFalse() {
         
     }
