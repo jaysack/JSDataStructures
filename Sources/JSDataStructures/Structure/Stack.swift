@@ -32,8 +32,9 @@ extension Stack: CustomStringConvertible {
 
     var description: String {
         guard !isEmpty else { return "EMPTY STACK" }
-        let divider = "STACK: \(count) || \n--\n"
+        let label = "STACK: \(count)\n"
+        let divider = "--\n"
         let elementsPrintout = elements.map { "\($0)\n" }
-        return divider + elementsPrintout.joined() + divider
+        return label + divider + elementsPrintout.joined() + divider
     }
 }

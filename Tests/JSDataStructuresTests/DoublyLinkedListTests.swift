@@ -116,13 +116,26 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertTrue(insertionResult, "Only valid index insertions can return true")
     }
 
-    func testDoublyLinkedList_WhenInsertingAtInvalidIndex_ShouldReturnTrue() {
+    func testDoublyLinkedList_WhenInsertingAtInvalidIndex_ShouldReturnFalse() {
+        // Arrange
+
+        // Act
+        let insertionResult = sut.insert(400, at: -3)
         
+        // Assert
+        XCTAssertFalse(insertionResult, "Invalid index insertion should return false")
     }
 
     // MARK: - 'pop' method tests
     func testDoublyLinkedList_WhenPoppingOnAnEmptyList_ShouldReturnNil() {
+        // Arrange
+        sut = DoublyLinkedList<Int>()
+
+        // Act
+        let poppedItem = sut.pop()
         
+        // Assert
+//        XCTAssertTrue(poppingResult, "Only valid index insertions can return true")
     }
 
     func testDoublyLinkedList_WhenPoppingOnNonEmptyList_ShouldReturnHead() {
