@@ -1,7 +1,7 @@
 
 import Foundation
 
-final public class BSTNode<T>: TreeNode<T> {
+public class BSTNode<T>: TreeNode<T> {
 
     // MARK: - Init
     public override init(_ value: T) {
@@ -11,7 +11,6 @@ final public class BSTNode<T>: TreeNode<T> {
     // MARK: - Properties
     public var left: BSTNode<T>?
     public var right: BSTNode<T>?
-    public var balance: Int { return (right?.depth ?? 0) - (left?.depth ?? 0) }
     override public var children: [TreeNode<T>] { return [left, right].compactMap { $0 } }
     
     // MARK: - Traversal Methods
