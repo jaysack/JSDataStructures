@@ -1,9 +1,0 @@
-os: osx
-osx_language: xcode12
-language: swift
-script: 'xcodebuild clean build test -project JSDataStructures.xcodeproj'
-notifications:
-  email:
-    recipients:
-      - dev@jonathansack.io
-    on_failure: always
