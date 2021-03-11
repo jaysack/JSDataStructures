@@ -1,0 +1,27 @@
+# CI Github Workfow
+name: CI
+
+# Pushes to master
+on: push:
+  branches:
+    - master
+
+# Job Description
+jobs:
+  test:
+    name: Test
+    runs-on: macOS-latest
+
+    # Steps
+    steps:
+      # 1. Checkout
+      - name: Checkout
+      uses: actions/checkout@v2
+
+      # 2. Build
+      - name: Build
+      run: swift build
+
+      #  3. Test
+      - name: Test
+      run: swift test
