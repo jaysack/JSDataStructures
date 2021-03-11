@@ -23,24 +23,24 @@ public struct DoublyLinkedList<T: Equatable> {
     // MARK: - Push
     public mutating func push(_ value: T) {
 
-        // 1. Create node
+        // Create node
         let node = Node(value)
         
-        // 2. Count incrementation
+        // Count incrementation
         defer { count += 1 }
 
-        // 3. Empty case
+        // Empty case
         if isEmpty {
             head = node
             tail = node
         
-        // 4. Default case
+        // Default case
         } else {
-            // 4.a. connect to other nodes
+            // connect to other nodes
             head?.prev = node
             node.next = head
 
-            // 4.b. activate/deactivate refs
+            // activate/deactivate refs
             head = node
         }
     }
@@ -48,18 +48,18 @@ public struct DoublyLinkedList<T: Equatable> {
     // MARK: - Append
     public mutating func append(_ value: T) {
 
-        // 1. Create node
+        // Create node
         let node = Node(value)
 
-        // 2. Count incrementation
+        // Count incrementation
         defer { count += 1 }
 
-        // 3. Empty case
+        // Empty case
         if isEmpty {
             tail = node
             head = node
 
-        // 4. Default case
+        // Default case
         } else {
             tail?.next = node
             node.prev = tail
@@ -70,23 +70,23 @@ public struct DoublyLinkedList<T: Equatable> {
     // MARK: - Insert at
     @discardableResult
     public mutating func insert(_ value: T, at index: Int) -> Bool {
-        // 1. Create node
+        // Create node
         let node = Node(value)
 
-        // 2. Defer count incrementation
+        // Defer count incrementation
         defer { count += 1 }
 
-        // 3. Out of bounds case (including negative indexes)
+        // Out of bounds case (including negative indexes)
         guard (index >= 0) && (index < count) else { return false }
 
-        // 4. Empty case
+        // Empty case
         if isEmpty {
             head = node
             tail = node
             return true
         }
 
-        // 5. Find current node at index
+        // Find current node at index
         var n: Int = 0
         var prev = head
         var current = head
@@ -97,7 +97,7 @@ public struct DoublyLinkedList<T: Equatable> {
             n += 1
         }
 
-        // 6. Insert new node between 'prev' and 'current'
+        // Insert new node between 'prev' and 'current'
         prev?.next = node
         node.prev = prev
 
@@ -111,10 +111,10 @@ public struct DoublyLinkedList<T: Equatable> {
     @discardableResult
     public mutating func pop() -> T? {
 
-        // 1. Defer count decrease
+        // Defer count decrease
         defer { count -= 1 }
 
-        // 2. Solo case
+        // Solo case
         if hasSoloItem {
             defer {
                 head = nil
@@ -122,7 +122,7 @@ public struct DoublyLinkedList<T: Equatable> {
             }
             return head?.value
         
-        // 3. Default case
+        // Default case
         } else {
             defer {
                 head?.next?.prev = nil
@@ -135,15 +135,15 @@ public struct DoublyLinkedList<T: Equatable> {
     // MARK: - Pop Last
     @discardableResult
     public mutating func popLast() -> T? {
-        // 1. Defer count decrease
+        // Defer count decrease
         defer { count -= 1 }
         
-        // 2. Empty case
+        // Empty case
         if isEmpty {
             return nil
         }
 
-        // 3. Solo case
+        // Solo case
         if hasSoloItem {
             defer {
                 tail = nil
@@ -151,7 +151,7 @@ public struct DoublyLinkedList<T: Equatable> {
             }
             return tail?.value
 
-        // 4. Default case
+        // Default case
         } else {
             defer {
                 tail?.prev?.next = nil
@@ -164,13 +164,13 @@ public struct DoublyLinkedList<T: Equatable> {
     // MARK: - Remove at
     public mutating func remove(at index: Int) -> T? {
         
-        // 1. Guard out of bounds (including negative indexes)
+        // Guard out of bounds (including negative indexes)
         guard (index >= 0) && (index < count) else { return nil }
 
-        // 2. Defer count decrease
+        // Defer count decrease
         defer { count -= 1 }
 
-        // 3. Find node
+        // Find node
         var n = 0
         var current = head
         
@@ -179,11 +179,11 @@ public struct DoublyLinkedList<T: Equatable> {
             n += 1
         }
 
-        // 4. Remove node
+        // Remove node
         current?.prev?.next = current?.next
         current?.next?.prev = current?.prev
 
-        // 5. Return value
+        // Return value
         return current?.value
     }
 

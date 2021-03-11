@@ -27,7 +27,7 @@ public struct Queue<T> {
         // Empty case
         guard !isEmpty else { return nil }
 
-        // O(1) if collection conforms to RandomAccessCollection
+        // Default case
         guard let head = elements.first else { return nil }
         elements = Array(elements.dropFirst())
 
