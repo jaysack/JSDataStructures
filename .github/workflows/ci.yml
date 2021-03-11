@@ -2,8 +2,9 @@
 name: CI
 
 # Pushes to master
-on: push:
-  branches:
+on:
+  push:
+    branches:
     - master
 
 # Job Description
