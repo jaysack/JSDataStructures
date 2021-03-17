@@ -1,7 +1,11 @@
 
 import Foundation
 
-public class Node<T> {
+final public class Node<T>: LinkNodeProtocol {
+
+    // MARK: - Typealiases
+    public typealias Value = T
+    public typealias Element = Node<T>
     
     // MARK: - Init
     public init(_ value: T) {
@@ -10,8 +14,8 @@ public class Node<T> {
     
     // MARK: - Properties
     public var value: T
-    public var prev: Node<T>?
-    public var next: Node<T>?
+    public var prev: Element?
+    public weak var next: Element?
 }
 
 // MARK: - EXT. Custom String Convertible

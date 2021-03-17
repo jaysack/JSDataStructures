@@ -4,6 +4,7 @@ import XCTest
 
 class QueueTests: XCTestCase {
 
+    // mock: Andre <- Kate <- Bob <- Tajea
     var sut: Queue<String>!
 
     override func setUpWithError() throws {

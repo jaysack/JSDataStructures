@@ -1,35 +1,97 @@
 
 import Foundation
 
-public class BSTNode<T>: TreeNode<T> {
+public class BSTNode<T: Comparable>: TraversableBinaryNode {
+
+    // MARK: - Typealiases
+    public typealias Value = T
+    public typealias Element = BSTNode<T>
 
     // MARK: - Init
-    public override init(_ value: T) {
-        super.init(value)
+    public init(_ value: Value) {
+        self.value = value
     }
 
     // MARK: - Properties
-    public var left: BSTNode<T>?
-    public var right: BSTNode<T>?
-    override public var children: [TreeNode<T>] { return [left, right].compactMap { $0 } }
-    
-    // MARK: - Traversal Methods
-    // In order
-    public func forEachInOrder(completion: (TreeNode<T>) -> Void) {
-        left?.forEachInOrder(completion: completion)
-        completion(self)
-        right?.forEachInOrder(completion: completion)
+    public var value: Value
+    public weak var parent: Element?
+
+    public var left: Element? {
+        didSet { left?.parent = self }
     }
 
-    // Pre order
-    public func forEachPreOrder(completion: (TreeNode<T>) -> Void) {
-        self.forEachDepthFirst(completion: completion)
+    public var right: Element? {
+        didSet { right?.parent = self }
     }
     
-    // Post order
-    public func forEachPostOrder(completion: (TreeNode<T>) -> Void) {
-        [left, right].forEach { $0?.forEachPostOrder(completion: completion) }
-        completion(self)
+    public var children: [Element] {
+        return [left, right].compactMap { $0 }
+    }
+
+    // MARK: - Lookup Methods
+    // Minimum
+    public func minimum() -> Value {
+        guard let left = self.left else { return value }
+        return left.minimum()
+    }
+
+    // Maximum
+    public func maximum() -> Value {
+        guard let right = self.right else { return value }
+        return right.maximum()
+    }
+
+    // Contains
+    public func contains(_ element: Value) -> Bool {
+
+        if element == value {
+            return true
+
+        } else if element < value {
+            return left?.contains(element) ?? false
+            
+        } else if element > value {
+            return right?.contains(element) ?? false
+            
+        } else {
+            return false
+        }
+    }
+
+    // MARK: - Mutating Methods
+    // Insert
+    func insert(_ value: T) {
+
+
+        // Get node
+        let node = BSTNode<T>(value)
+        
+        // Left side
+        if value < self.value {
+
+            // Update left node
+            if let left = self.left {
+                left.insert(value)
+
+            // New left node
+            } else {
+                left = node
+            }
+        }
+
+        // Right side
+        if value > self.value {
+
+            // Update right node
+            if let right = self.right {
+                right.insert(value)
+
+            // New right node
+            } else {
+                right = node
+            }
+        }
+        
     }
 }
 

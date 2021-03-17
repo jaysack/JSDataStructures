@@ -66,7 +66,7 @@ class TreeNodeTests: XCTestCase {
         root = TreeNode<Int>(5)
         
         // Act
-        let depth = root.depth
+        let depth = root.depth()
         
         // Assert
         XCTAssertEqual(depth, 1, "Depth of leaf node should be 1 but it is not")
@@ -77,7 +77,7 @@ class TreeNodeTests: XCTestCase {
         assert(root.children.count == 3)
         
         // Act
-        let depth = root.depth
+        let depth = root.depth()
         
         // Assert
         XCTAssertEqual(depth, 4, "Depth of root node should be 4 but it is not")
