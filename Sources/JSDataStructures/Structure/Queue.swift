@@ -1,29 +1,37 @@
 
 import Foundation
 
-public struct Queue<T> {
+//
+// ==============
+// MARK: - STRUCT
+// ==============
+//
+
+public struct Queue<Element> {
     
-    // MARK: - Init
+    // MARK: Init
     public init() {
         self.elements = []
+        self.count = 0
     }
 
-    // MARK: - Properties
-    private var elements: [T]
-    public var count: Int { return elements.count }
-    public var peek: T? { return elements.first }
+    // MARK: Properties
+    private var elements: [Element]
+    public var count: Int
+    public var peek: Element? { return elements.first }
     public var isEmpty: Bool { return elements.isEmpty }
 
-    // MARK: - Enqueue
+    // MARK: Enqueue
     @discardableResult
-    public mutating func enqueue(_ value: T) -> Bool {
+    public mutating func enqueue(_ value: Element) -> Bool {
         elements.append(value)
+        defer { count += 1 }
         return true
     }
     
-    // MARK: - Dequeue
+    // MARK: Dequeue
     @discardableResult
-    public mutating func dequeue() -> T? {
+    public mutating func dequeue() -> Element? {
         // Empty case
         guard !isEmpty else { return nil }
 
@@ -31,16 +39,56 @@ public struct Queue<T> {
         guard let head = elements.first else { return nil }
         elements = Array(elements.dropFirst())
 
+        // Update count
+        defer { count -= 1 }
+
         // Return head
         return head
     }
 }
 
-// MARK: - EXT. Custom String Convertible
-extension Queue: CustomStringConvertible {
+//
+// ==================
+// MARK: - EXTENSIONS
+// ==================
+//
 
+// MARK: Sequence
+extension Queue: Sequence, IteratorProtocol {
+    public mutating func next() -> Element? {
+        guard count > 0 else { return nil }
+        defer { count -= 1 }
+        return elements[count - 1]
+    }
+}
+
+// MARK: CustomStringConvertible
+extension Queue: CustomStringConvertible {
     public var description: String {
-        guard !isEmpty else { return "EMPTY QUEUE" }
-        return "QUEUE: \(count) || \(elements)"
+        return "\(self.elements)"
+    }
+}
+
+// MARK: CustomDebugStringConvertible
+extension Queue: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        let description = """
+            QUEUE: \(self)
+              - count: \(self.count)
+              - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
+              - isEmpty: \(self.isEmpty)
+            """
+        return description
+    }
+}
+
+// MARK: ExpressibleByArrayLiteral
+extension Queue: ExpressibleByArrayLiteral {
+    public typealias ArrayLiteralElement = Element
+    public init(arrayLiteral elements: Element...) {
+        self.init()
+        for element in elements {
+            self.enqueue(element)
+        }
     }
 }
