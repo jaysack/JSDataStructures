@@ -1,40 +1,83 @@
 
 import Foundation
 
-struct Stack<T> {
+//
+// ==============
+// MARK: - STRUCT
+// ==============
+//
 
-    // MARK: - Init
+struct Stack<Element> {
+
+    // MARK: Init
     public init() {
         self.elements = []
+        self.count = 0
     }
 
-    // MARK: - Properties
-    private var elements: [T]
-    public var peek: T? { return elements.last }
+    // MARK: Properties
+    private var elements: [Element]
+    public var count: Int
+    public var peek: Element? { return elements.last }
     public var isEmpty: Bool { return elements.isEmpty }
-    public var count: Int { return elements.count }
     
-    // MARK: - Methods
+    // MARK: Methods
     // Push
-    public mutating func push(_ value: T) {
+    public mutating func push(_ value: Element) {
+        count += 1
         elements.append(value)
     }
 
     // Pop
     @discardableResult
-    public mutating func pop() -> T? {
+    public mutating func pop() -> Element? {
+        count -= 1
         return elements.popLast()
     }
 }
 
-// MARK: - EXT. Custom String Convertible
-extension Stack: CustomStringConvertible {
+//
+// ==================
+// MARK: - EXTENSIONS
+// ==================
+//
 
-    var description: String {
-        guard !isEmpty else { return "EMPTY STACK" }
-        let label = "STACK: \(count)\n"
-        let divider = "--\n"
-        let elementsPrintout = elements.map { "\($0)\n" }
-        return label + divider + elementsPrintout.joined() + divider
+// MARK: Sequence
+extension Stack: Sequence, IteratorProtocol {
+    public mutating func next() -> Element? {
+        guard count > 0 else { return nil }
+        defer { count -= 1 }
+        return elements[count - 1]
+    }
+}
+
+// MARK: CustomStringConvertible
+extension Stack: CustomStringConvertible {
+    public var description: String {
+        return "\(self.elements)"
+    }
+}
+
+// MARK: CustomDebugStringConvertible
+extension Stack: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        let description = """
+            STACK: \(self)
+              - count: \(self.count)
+              - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
+              - isEmpty: \(self.isEmpty)
+            """
+        return description
+    }
+}
+
+// MARK: ExpressibleByArrayLiteral
+extension Stack: ExpressibleByArrayLiteral {
+    public typealias ArrayLiteralElement = Element
+    public init(arrayLiteral elements: Element...) {
+        self.init()
+        for element in elements {
+            self.push(element)
+        }
     }
 }
