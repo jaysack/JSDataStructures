@@ -7,7 +7,7 @@ import Foundation
 // ==============
 //
 
-public struct Queue<Element> {
+public struct Queue<T>: Sequence {
     
     // MARK: Init
     public init() {
@@ -16,14 +16,14 @@ public struct Queue<Element> {
     }
 
     // MARK: Properties
-    private var elements: [Element]
+    private var elements: [T]
     public var count: Int
     public var peek: Element? { return elements.first }
     public var isEmpty: Bool { return elements.isEmpty }
 
     // MARK: Enqueue
     @discardableResult
-    public mutating func enqueue(_ value: Element) -> Bool {
+    public mutating func enqueue(_ value: T) -> Bool {
         elements.append(value)
         defer { count += 1 }
         return true
@@ -31,7 +31,7 @@ public struct Queue<Element> {
     
     // MARK: Dequeue
     @discardableResult
-    public mutating func dequeue() -> Element? {
+    public mutating func dequeue() -> T? {
         // Empty case
         guard !isEmpty else { return nil }
 
@@ -53,9 +53,9 @@ public struct Queue<Element> {
 // ==================
 //
 
-// MARK: Sequence
-extension Queue: Sequence, IteratorProtocol {
-    public mutating func next() -> Element? {
+// MARK: IteratorProtocol
+extension Queue: IteratorProtocol {
+    public mutating func next() -> T? {
         guard count > 0 else { return nil }
         defer { count -= 1 }
         return elements[count - 1]
@@ -84,8 +84,8 @@ extension Queue: CustomDebugStringConvertible {
 
 // MARK: ExpressibleByArrayLiteral
 extension Queue: ExpressibleByArrayLiteral {
-    public typealias ArrayLiteralElement = Element
-    public init(arrayLiteral elements: Element...) {
+    public typealias ArrayLiteralElement = T
+    public init(arrayLiteral elements: T...) {
         self.init()
         for element in elements {
             self.enqueue(element)

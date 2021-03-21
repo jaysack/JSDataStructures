@@ -1,24 +1,35 @@
 
 import Foundation
 
+//
+// =============
+// MARK: - CLASS
+// =============
+//
+
 final public class Node<T>: LinkNodeProtocol {
 
-    // MARK: - Typealiases
-    public typealias Value = T
+    // MARK: Typealiases
     public typealias Element = Node<T>
     
-    // MARK: - Init
+    // MARK: Init
     public init(_ value: T) {
         self.value = value
     }
     
-    // MARK: - Properties
+    // MARK: Properties
     public var value: T
     public var prev: Element?
     public weak var next: Element?
 }
 
-// MARK: - EXT. Custom String Convertible
+//
+// ==================
+// MARK: - EXTENSIONS
+// ==================
+//
+
+// MARK: CustomStringConvertible
 extension Node: CustomStringConvertible {
     public var description: String {
         guard let next = next else { return "\(value)" }

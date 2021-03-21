@@ -1,26 +1,36 @@
 
 import Foundation
 
-public struct DoublyLinkedList<T: Equatable> {
+//
+// ==============
+// MARK: - STRUCT
+// ==============
+//
+
+public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
     
-    // MARK: - Init
+    // MARK: Typealiases
+    public typealias Element = T
+    public typealias Index = Int
+    
+    // MARK: Init
     public init() {
         head = nil
         tail = nil
         count = 0
     }
 
-    // MARK: - Nodes
+    // MARK: Nodes
     private var head: Node<T>?
     private var tail: Node<T>?
 
-    // MARK: - Properties
+    // MARK: Properties
     public var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
     public var hasSoloItem: Bool { return head === tail && !isEmpty }
 
-    // MARK: - Push
+    // MARK: Push
     public mutating func push(_ value: T) {
 
         // Create node
@@ -45,7 +55,7 @@ public struct DoublyLinkedList<T: Equatable> {
         }
     }
 
-    // MARK: - Append
+    // MARK: Append
     public mutating func append(_ value: T) {
 
         // Create node
@@ -67,7 +77,7 @@ public struct DoublyLinkedList<T: Equatable> {
         }
     }
     
-    // MARK: - Insert at
+    // MARK: Insert at
     @discardableResult
     public mutating func insert(_ value: T, at index: Int) -> Bool {
         // Create node
@@ -107,7 +117,7 @@ public struct DoublyLinkedList<T: Equatable> {
         return true
     }
 
-    // MARK: - Pop
+    // MARK: Pop
     @discardableResult
     public mutating func pop() -> T? {
 
@@ -132,7 +142,7 @@ public struct DoublyLinkedList<T: Equatable> {
         }
     }
     
-    // MARK: - Pop Last
+    // MARK: Pop Last
     @discardableResult
     public mutating func popLast() -> T? {
         // Defer count decrease
@@ -161,7 +171,7 @@ public struct DoublyLinkedList<T: Equatable> {
         }
     }
 
-    // MARK: - Remove at
+    // MARK: Remove at
     public mutating func remove(at index: Int) -> T? {
         
         // Guard out of bounds (including negative indexes)
@@ -187,7 +197,7 @@ public struct DoublyLinkedList<T: Equatable> {
         return current?.value
     }
 
-    // MARK: Node
+    // MARK: Node at
     public func node(at index: Int) -> Node<T>? {
         // Guard out of bounds (including negative indexes)
         guard (index >= 0) && (index < count) else { return nil }
@@ -204,7 +214,7 @@ public struct DoublyLinkedList<T: Equatable> {
         return current
     }
 
-    // MARK: - Contains
+    // MARK: Contains
     public func contains(_ value: T) -> Int? {
         
         var n = 0
@@ -220,55 +230,65 @@ public struct DoublyLinkedList<T: Equatable> {
     }
 }
 
-// MARK: - EXT. Custom String Convertible
-extension DoublyLinkedList: CustomStringConvertible {
+//
+// ==================
+// MARK: - EXTENSIONS
+// ==================
+//
 
-    public var description: String {
-        guard let head = head else { return "EMPTY DOUBLY LINKED LIST" }
-        return "DOUBLY LINKED LIST: \(count) || " + String(describing: head)
+// MARK: ExpressibleByArrayLiteral
+extension DoublyLinkedList: ExpressibleByArrayLiteral {
+    public typealias ArrayLiteralElement = T
+    public init(arrayLiteral elements: T...) {
+        self.init()
+        for element in elements {
+            self.append(element)
+        }
     }
 }
 
-// MARK: - Ext. Collection Protocols Helpers
+// MARK: CustomStringConvertible
+extension DoublyLinkedList: CustomStringConvertible {
+    public var description: String {
+        return "\(self.isEmpty ? "[]" : String(describing: head!))"
+    }
+}
+
+// MARK: CustomDebugStringConvertible
+extension DoublyLinkedList: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        let description = """
+            DOUBLY LINKED LIST
+              - list: \(self)
+              - count: \(self.count)
+              - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
+              - head: \(self.head == nil ? "nil" : String(describing: self.head!.value))
+              - tail: \(self.tail == nil ? "nil" : String(describing: self.tail!.value))
+              - isEmpty: \(self.isEmpty)
+              - hasSoloItem: \(self.hasSoloItem)
+            """
+        return description
+    }
+}
+
+// MARK: RandomAccessCollection
 extension DoublyLinkedList {
     
-    public struct Index: Comparable {
-        
-        public var node: Node<T>?
-        
-        static public func == (lhs: Index, rhs: Index) -> Bool {
-            switch (lhs.node, rhs.node) {
-            case let (left?, right?):       return left.next === right.next
-            case (nil, nil):                return true
-            default:                        return false
-            }
-        }
-        
-        static public func < (lhs: Index, rhs: Index) -> Bool {
-            guard lhs != rhs else { return false }
-            
-            let nodes = sequence(first: lhs.node) { $0?.next }
-            return nodes.contains { $0 === rhs.node }
-        }
-    }
-}
-
-// MARK: EXT. Collection Conformance Properties
-extension DoublyLinkedList: RandomAccessCollection {
-
-    public var startIndex: Index { return Index(node: head) }
-    public var endIndex: Index { return Index(node: tail) }
+    public var startIndex: Index { return count - count }
+    public var endIndex: Index { return count - 1 }
 
     public func index(before i: Index) -> Index {
-        return Index(node: i.node?.prev)
+        return i - 1
     }
 
     public func index(after i: Index) -> Index {
-        return Index(node: i.node?.next)
+        return i + 1
     }
 
-    public subscript(position: Index) -> T {
-        precondition(indices.contains(position), "\(String(describing: self)): index \(position) is out-of-bounds")
-        return position.node!.value
+    public subscript(position: Int) -> T {
+        get {
+            precondition(indices.contains(position), "Doubly linked list \(String(describing: self)). Index \(position) is out-of-bounds")
+            return node(at: position)!.value
+        }
     }
 }

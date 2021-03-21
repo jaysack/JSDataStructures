@@ -12,10 +12,10 @@ class DoublyLinkedListTests: XCTestCase {
         sut = DoublyLinkedList<Int>()
         
         // Add nodes
-        sut?.append(3)
-        sut?.append(7)
-        sut?.append(8)
-        sut?.append(15)
+        sut.append(3)
+        sut.append(7)
+        sut.append(8)
+        sut.append(15)
     }
 
     override func tearDownWithError() throws {
@@ -28,7 +28,7 @@ class DoublyLinkedListTests: XCTestCase {
         assert(sut.count == 4)
         
         // Act
-        sut!.append(99)
+        sut.append(99)
         
         // Assert
         XCTAssertEqual(5, sut!.count, "Doubly Linked List count should have been increased to 5 but it was not")
@@ -39,7 +39,7 @@ class DoublyLinkedListTests: XCTestCase {
         assert(sut.count == 4)
         
         // Act
-        sut!.popLast()
+        sut.popLast()
         
         // Assert
         XCTAssertEqual(3, sut.count, "Doubly Linked List count should have been decreased to 3 but it was not")
@@ -99,7 +99,7 @@ class DoublyLinkedListTests: XCTestCase {
         let oldTail = sut.node(at: endIndex)
         
         // Act
-        sut?.append(200)
+        sut.append(200)
         
         // Assert
         XCTAssertFalse(oldTail === sut.node(at: sut.count - 1), "Old tail node should have been updated after appending a new element")

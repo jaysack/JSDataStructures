@@ -7,7 +7,7 @@ import Foundation
 // ==============
 //
 
-struct Stack<Element> {
+struct Stack<T>: Sequence {
 
     // MARK: Init
     public init() {
@@ -16,21 +16,21 @@ struct Stack<Element> {
     }
 
     // MARK: Properties
-    private var elements: [Element]
+    private var elements: [T]
     public var count: Int
     public var peek: Element? { return elements.last }
     public var isEmpty: Bool { return elements.isEmpty }
     
     // MARK: Methods
     // Push
-    public mutating func push(_ value: Element) {
+    public mutating func push(_ value: T) {
         count += 1
         elements.append(value)
     }
 
     // Pop
     @discardableResult
-    public mutating func pop() -> Element? {
+    public mutating func pop() -> T? {
         count -= 1
         return elements.popLast()
     }
@@ -42,9 +42,9 @@ struct Stack<Element> {
 // ==================
 //
 
-// MARK: Sequence
-extension Stack: Sequence, IteratorProtocol {
-    public mutating func next() -> Element? {
+// MARK: IteratorProtocol
+extension Stack: IteratorProtocol {
+    public mutating func next() -> T? {
         guard count > 0 else { return nil }
         defer { count -= 1 }
         return elements[count - 1]
@@ -73,8 +73,8 @@ extension Stack: CustomDebugStringConvertible {
 
 // MARK: ExpressibleByArrayLiteral
 extension Stack: ExpressibleByArrayLiteral {
-    public typealias ArrayLiteralElement = Element
-    public init(arrayLiteral elements: Element...) {
+    public typealias ArrayLiteralElement = T
+    public init(arrayLiteral elements: T...) {
         self.init()
         for element in elements {
             self.push(element)
