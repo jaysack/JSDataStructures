@@ -244,4 +244,37 @@ class DoublyLinkedListTests: XCTestCase {
         // Assert
         XCTAssertNil(number, "Empty list should not contain any item")
     }
+
+    func testDoublyLinkedList_WhenCheckingExistenceOfValidElement_ShouldElementIndex() {
+        // Arrange
+        // ...
+
+        // Act
+        let index = sut.contains(8)
+        
+        // Assert
+        XCTAssertEqual(index, 2, "Element (8) is located at index 2 but another index was returned")
+    }
+
+    func testDoublyLinkedList_WhenCheckingExistenceOfInvalidElement_ShouldReturnNil() {
+        // Arrange
+        // ...
+
+        // Act
+        let index = sut.contains(80)
+        
+        // Assert
+        XCTAssertNil(index, "Element (80) is not part of the doubly linked list but yet still return an index while it's not possible")
+    }
+
+    func testDoublyLinkedList_BecauseOfArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
+        // Arrange
+        // ...
+        
+        // Act
+        sut = [1, 2, 3, 4]
+        
+        // Assert
+        XCTAssertEqual(sut.peek, 1, "List peek should be 4 but it is not")
+    }
 }

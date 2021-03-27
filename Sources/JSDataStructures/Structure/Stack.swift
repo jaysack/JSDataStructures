@@ -54,7 +54,7 @@ extension Stack: IteratorProtocol {
 // MARK: CustomStringConvertible
 extension Stack: CustomStringConvertible {
     public var description: String {
-        return "\(self.elements)"
+        return "\(self.elements.reversed())"
     }
 }
 
@@ -62,7 +62,7 @@ extension Stack: CustomStringConvertible {
 extension Stack: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = """
-            STACK: \(self)
+            STACK: \(self.reversed())
               - count: \(self.count)
               - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
               - isEmpty: \(self.isEmpty)
@@ -76,7 +76,7 @@ extension Stack: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {
         self.init()
-        for element in elements {
+        for element in elements.reversed() {
             self.push(element)
         }
     }

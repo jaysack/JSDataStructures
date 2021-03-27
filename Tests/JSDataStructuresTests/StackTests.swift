@@ -84,4 +84,26 @@ class StackTests: XCTestCase {
         // Assert
         XCTAssertEqual(reversedLoopResult.reversed(), sut.elements, "For loop should traverse the sequence in reversed order but it did not")
     }
+
+    func testStack_BecauseOfArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
+        // Arrange
+        // ...
+        
+        // Act
+        sut = [4, 8, 9]
+        
+        // Assert
+        XCTAssertEqual([4, 8, 9], sut.elements.reversed(), "Elements should be initiated from array literal but it did not work")
+    }
+
+    func testStack_BecauseOfArrayLiteralProtocol_ShouldPlaceArrayFirstElementOnTop() {
+        // Arrange
+        // ...
+        
+        // Act
+        sut = [4, 8, 9]
+        
+        // Assert
+        XCTAssertEqual(4, sut.peek, "Peek should be 4 but it is not")
+    }
 }

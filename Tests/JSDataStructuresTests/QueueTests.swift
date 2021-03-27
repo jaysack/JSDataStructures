@@ -64,4 +64,15 @@ class QueueTests: XCTestCase {
         // Assert
         XCTAssertEqual(reversedLoopResult.reversed(), sut.elements, "For loop should traverse the sequence in reversed order but it did not")
     }
+
+    func testQueue_BecauseOfArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
+        // Arrange
+        // ...
+        
+        // Act
+        sut = ["Andre", "Kate", "Bob", "Tajea"]
+        
+        // Assert
+        XCTAssertEqual(["Andre", "Kate", "Bob", "Tajea"], sut.elements, "Elements should be initiated from array literal but it did not work")
+    }
 }

@@ -215,7 +215,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
     }
 
     // MARK: Contains
-    public func contains(_ value: T) -> Int? {
+    public func contains(_ value: T) -> Index? {
         
         var n = 0
         var current = head
