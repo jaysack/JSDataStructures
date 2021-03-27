@@ -64,7 +64,7 @@ public class BSTNode<T: Comparable>: TraversableBinaryNode {
 
 
         // Get node
-        let node = BSTNode<T>(value)
+        let node = Element(value)
         
         // Left side
         if value < self.value {
