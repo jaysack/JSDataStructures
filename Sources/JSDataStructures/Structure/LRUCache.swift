@@ -1,17 +1,24 @@
 
 import Foundation
 
-public struct LRUCache<T: Hashable> {
+//
+// ==============
+// MARK: - STRUCT
+// ==============
+//
+
+public struct LRUCache<T: Hashable>: Sequence {
     
     // MARK: - Init
     init(capacity: Int) {
         self.capacity = capacity
         self.list = DoublyLinkedList()
+        self.count = 0
     }
     
     // MARK: - Properties
     public var capacity: Int
-    public var count: Int { return list.count }
+    public var count: Int
     public var peek: T? { return list.peek }
     private var list: DoublyLinkedList<T>
 
@@ -20,9 +27,11 @@ public struct LRUCache<T: Hashable> {
     public mutating func insert(_ value: T) {
         // Add to head
         list.push(value)
+        count += 1
 
         // Remove tail if capacity reached
         if count > capacity {
+            count -= 1
             list.popLast()
         }
     }
@@ -38,5 +47,41 @@ public struct LRUCache<T: Hashable> {
 
         // Return
         return true
+    }
+}
+
+//
+// ==================
+// MARK: - EXTENSIONS
+// ==================
+//
+
+// MARK: IteratorProtocol
+extension LRUCache: IteratorProtocol {
+    public mutating func next() -> T? {
+        guard count > 0 else { return nil }
+        defer { count -= 1 }
+        return list[count - 1]
+    }
+}
+
+// MARK: CustomStringConvertible
+extension LRUCache: CustomStringConvertible {
+    public var description: String {
+        return "\(self.list)"
+    }
+}
+
+// MARK: CustomDebugStringConvertible
+extension LRUCache: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        let description = """
+            LRU CACHE:
+              - list: \(self.list)
+              - count: \(self.count)
+              - capacity: \(self.capacity)
+              - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
+            """
+        return description
     }
 }
