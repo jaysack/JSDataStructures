@@ -62,6 +62,6 @@ class QueueTests: XCTestCase {
         }
         
         // Assert
-        XCTAssertEqual(reversedLoopResult.reversed(), sut.elements, "For loop should traverse the array in order but it did not")
+        XCTAssertEqual(reversedLoopResult.reversed(), sut.elements, "For loop should traverse the sequence in reversed order but it did not")
     }
 }

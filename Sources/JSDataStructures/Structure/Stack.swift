@@ -16,7 +16,7 @@ struct Stack<T>: Sequence {
     }
 
     // MARK: Properties
-    private var elements: [T]
+    public var elements: [T]
     public var count: Int
     public var peek: Element? { return elements.last }
     public var isEmpty: Bool { return elements.isEmpty }
@@ -24,14 +24,14 @@ struct Stack<T>: Sequence {
     // MARK: Methods
     // Push
     public mutating func push(_ value: T) {
-        count += 1
+        defer { count += 1 }
         elements.append(value)
     }
 
     // Pop
     @discardableResult
     public mutating func pop() -> T? {
-        count -= 1
+        defer { count -= 1 }
         return elements.popLast()
     }
 }
