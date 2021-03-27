@@ -51,4 +51,17 @@ class QueueTests: XCTestCase {
         // Assert
         XCTAssertEqual(person, "Andre", "Andre should have been dequeued but he was not")
     }
+
+    func testQueue_BecauseOfSequenceProtocol_ShouldBeTraversableInReverseWithAForInLoop() {
+        // Arrange
+        var reversedLoopResult: [String] = []
+        
+        // Act
+        for element in sut {
+            reversedLoopResult.append(element)
+        }
+        
+        // Assert
+        XCTAssertEqual(reversedLoopResult.reversed(), sut.elements, "For loop should traverse the array in order but it did not")
+    }
 }

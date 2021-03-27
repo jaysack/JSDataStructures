@@ -16,7 +16,7 @@ public struct Queue<T>: Sequence {
     }
 
     // MARK: Properties
-    private var elements: [T]
+    public var elements: [T]
     public var count: Int
     public var peek: Element? { return elements.first }
     public var isEmpty: Bool { return elements.isEmpty }

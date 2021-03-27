@@ -17,14 +17,6 @@ class LRUCacheTests: XCTestCase {
         sut.insert(7)
         sut.insert(8)
         sut.insert(15)
-        
-        print()
-        print(sut!)
-        
-        for item in sut! {
-            print("ITEM:", item)
-        }
-        print()
     }
 
     override func tearDownWithError() throws {
