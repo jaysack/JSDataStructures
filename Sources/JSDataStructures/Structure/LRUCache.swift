@@ -27,12 +27,13 @@ public struct LRUCache<T: Hashable>: Sequence {
     public mutating func insert(_ value: T) {
         // Add to head
         list.push(value)
-        count += 1
+        // Defer count incrementation (count property should never exceed capacity)
+        defer { count += 1 }
 
         // Remove tail if capacity reached
-        if count > capacity {
-            count -= 1
+        if count == capacity {
             list.popLast()
+            count -= 1
         }
     }
    
