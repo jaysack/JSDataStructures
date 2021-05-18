@@ -82,12 +82,12 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
     public mutating func insert(_ value: T, at index: Int) -> Bool {
         // Create node
         let node = Node(value)
+        
+        // Out of bounds case (including negative indexes)
+        guard (index >= 0) && (index < count) else { return false }
 
         // Defer count incrementation
         defer { count += 1 }
-
-        // Out of bounds case (including negative indexes)
-        guard (index >= 0) && (index < count) else { return false }
 
         // Empty case
         if isEmpty {
@@ -121,6 +121,9 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
     @discardableResult
     public mutating func pop() -> T? {
 
+        // Empty case
+        guard !isEmpty else { return nil }
+
         // Defer count decrease
         defer { count -= 1 }
 
@@ -145,13 +148,12 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
     // MARK: Pop Last
     @discardableResult
     public mutating func popLast() -> T? {
-        // Defer count decrease
-        defer { count -= 1 }
         
         // Empty case
-        if isEmpty {
-            return nil
-        }
+        guard !isEmpty else { return nil }
+
+        // Defer count decrease
+        defer { count -= 1 }
 
         // Solo case
         if hasSoloItem {

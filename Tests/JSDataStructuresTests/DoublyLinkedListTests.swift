@@ -45,6 +45,39 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertEqual(3, sut.count, "Doubly Linked List count should have been decreased to 3 but it was not")
     }
     
+    func testDoublyLinkedList_WhenInsertingAtInvalidIndex_ShouldNotIncecreaseCount() {
+        // Arrange
+        assert(sut.count == 4)
+        
+        // Act
+        sut.insert(1000, at: -1)
+        
+        // Assert
+        XCTAssertEqual(4, sut.count, "Doubly Linked List count should NOT have been increased after attempting to insert at invalid index")
+    }
+    
+    func testDoublyLinkedList_WhenPoppingOnEmptyList_ShouldNotDececreaseCount() {
+        // Arrange
+        sut = DoublyLinkedList<Int>()
+        
+        // Act
+        sut.pop()
+        
+        // Assert
+        XCTAssertEqual(0, sut.count, "Doubly Linked List count should NOT have been decreased after attempting to pop on an empty list")
+    }
+    
+    func testDoublyLinkedList_WhenPoppingLastOnEmptyList_ShouldNotDececreaseCount() {
+        // Arrange
+        sut = DoublyLinkedList<Int>()
+        
+        // Act
+        sut.popLast()
+        
+        // Assert
+        XCTAssertEqual(0, sut.count, "Doubly Linked List count should NOT have been decreased after attempting to pop last item in an empty list")
+    }
+    
     // MARK: - 'hasSoloItem' property tests
     func testDoublyLinkedList_WhenCallingHasSoloItemOnEmptyList_ShouldReturnFalse() {
         // Arrange
