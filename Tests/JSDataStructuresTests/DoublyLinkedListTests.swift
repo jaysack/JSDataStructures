@@ -1,3 +1,10 @@
+//
+//  DoublyLinkedListTests.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
 
 import XCTest
 @testable import JSDataStructures
@@ -84,7 +91,7 @@ class DoublyLinkedListTests: XCTestCase {
         sut = DoublyLinkedList<Int>()
         
         // Act
-        let boolean = sut.hasSoloItem
+        let boolean = sut.hasSingleItem
         
         // Assert
         XCTAssertEqual(boolean, false, "Empty doubly linked list should not have a solo item but it is not the case")
@@ -95,7 +102,7 @@ class DoublyLinkedListTests: XCTestCase {
         assert(sut.count == 4)
         
         // Act
-        let boolean = sut.hasSoloItem
+        let boolean = sut.hasSingleItem
         
         // Assert
         XCTAssertEqual(boolean, false, "Non empty doubly linked list should have more than 1 solo item")
@@ -107,7 +114,7 @@ class DoublyLinkedListTests: XCTestCase {
         sut.append(3)
         
         // Act
-        let boolean = sut.hasSoloItem
+        let boolean = sut.hasSingleItem
         
         // Assert
         XCTAssertEqual(boolean, true, "Solo item list should have only 1 element")
@@ -189,7 +196,7 @@ class DoublyLinkedListTests: XCTestCase {
         // Arrange
         sut = DoublyLinkedList<Int>()
         sut.append(4)
-        assert(sut.hasSoloItem)
+        assert(sut.hasSingleItem)
 
         // Act
         let endIndex = sut.count - 1
@@ -228,7 +235,7 @@ class DoublyLinkedListTests: XCTestCase {
         // Arrange
         sut = DoublyLinkedList<Int>()
         sut.append(4)
-        assert(sut.hasSoloItem)
+        assert(sut.hasSingleItem)
 
         // Act
         let endIndex = sut.count - 1

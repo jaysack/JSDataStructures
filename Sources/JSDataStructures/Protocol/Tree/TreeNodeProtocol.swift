@@ -1,3 +1,11 @@
+//
+//  TreeNodeProtocol.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
+
 // MARK: - Protocol
 public protocol TreeNodeProtocol: AnyObject {
 

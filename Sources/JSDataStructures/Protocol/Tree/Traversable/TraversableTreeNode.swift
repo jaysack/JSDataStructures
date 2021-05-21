@@ -1,3 +1,11 @@
+//
+//  TraversableTreeNode.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
+
 // MARK: - Protocol
 public protocol TraversableTreeNode: TreeNodeProtocol where Element: TraversableTreeNode {
     func forEachDepthFirst(completion: (Element) -> Void)

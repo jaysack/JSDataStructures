@@ -1,3 +1,10 @@
+//
+//  BSTNode.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
 
 import Foundation
 
@@ -61,7 +68,6 @@ public class BSTNode<T: Comparable>: TraversableBinaryNode {
     // MARK: - Mutating Methods
     // Insert
     func insert(_ value: T) {
-
 
         // Get node
         let node = Element(value)

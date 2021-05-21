@@ -1,3 +1,10 @@
+//
+//  LRUCache.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
 
 import Foundation
 
@@ -57,7 +64,7 @@ public struct LRUCache<T: Hashable>: Sequence {
 // ==================
 //
 
-// MARK: IteratorProtocol
+// MARK: - IteratorProtocol
 extension LRUCache: IteratorProtocol {
     public mutating func next() -> T? {
         guard count > 0 else { return nil }
@@ -66,14 +73,14 @@ extension LRUCache: IteratorProtocol {
     }
 }
 
-// MARK: CustomStringConvertible
+// MARK: - CustomStringConvertible
 extension LRUCache: CustomStringConvertible {
     public var description: String {
         return "\(self.list)"
     }
 }
 
-// MARK: CustomDebugStringConvertible
+// MARK: - CustomDebugStringConvertible
 extension LRUCache: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = """

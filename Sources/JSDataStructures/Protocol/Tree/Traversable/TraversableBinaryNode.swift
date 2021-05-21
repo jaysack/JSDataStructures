@@ -1,3 +1,11 @@
+//
+//  TraversableBinaryNode.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
+
 // MARK: - Protocol
 public protocol TraversableBinaryNode: BinaryNodeProtocol where Element: TraversableBinaryNode {
     func forEachInOrder(completion: (Element) -> Void)

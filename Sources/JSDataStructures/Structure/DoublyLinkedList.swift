@@ -1,3 +1,10 @@
+//
+//  DoublyLinkedList.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
 
 import Foundation
 
@@ -13,24 +20,24 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
     public typealias Element = T
     public typealias Index = Int
     
-    // MARK: Init
+    // MARK: - Init
     public init() {
         head = nil
         tail = nil
         count = 0
     }
 
-    // MARK: Nodes
+    // MARK: - Nodes
     private var head: Node<T>?
     private var tail: Node<T>?
 
-    // MARK: Properties
+    // MARK: - Properties
     public var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
-    public var hasSoloItem: Bool { return head === tail && !isEmpty }
+    public var hasSingleItem: Bool { return head === tail && !isEmpty }
 
-    // MARK: Push
+    // MARK: - Push
     public mutating func push(_ value: T) {
 
         // Create node
@@ -55,7 +62,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         }
     }
 
-    // MARK: Append
+    // MARK: - Append
     public mutating func append(_ value: T) {
 
         // Create node
@@ -77,14 +84,15 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         }
     }
     
-    // MARK: Insert at
+    // MARK: - Insert at
     @discardableResult
     public mutating func insert(_ value: T, at index: Int) -> Bool {
-        // Create node
-        let node = Node(value)
-        
+
         // Out of bounds case (including negative indexes)
         guard (index >= 0) && (index < count) else { return false }
+        
+        // Create node
+        let node = Node(value)
 
         // Defer count incrementation
         defer { count += 1 }
@@ -117,7 +125,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         return true
     }
 
-    // MARK: Pop
+    // MARK: - Pop
     @discardableResult
     public mutating func pop() -> T? {
 
@@ -128,7 +136,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         defer { count -= 1 }
 
         // Solo case
-        if hasSoloItem {
+        if hasSingleItem {
             defer {
                 head = nil
                 tail = nil
@@ -145,7 +153,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         }
     }
     
-    // MARK: Pop Last
+    // MARK: - Pop Last
     @discardableResult
     public mutating func popLast() -> T? {
         
@@ -156,7 +164,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         defer { count -= 1 }
 
         // Solo case
-        if hasSoloItem {
+        if hasSingleItem {
             defer {
                 tail = nil
                 head = nil
@@ -173,7 +181,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         }
     }
 
-    // MARK: Remove at
+    // MARK: - Remove at
     public mutating func remove(at index: Int) -> T? {
         
         // Guard out of bounds (including negative indexes)
@@ -199,8 +207,9 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         return current?.value
     }
 
-    // MARK: Node at
+    // MARK: - Node at
     public func node(at index: Int) -> Node<T>? {
+
         // Guard out of bounds (including negative indexes)
         guard (index >= 0) && (index < count) else { return nil }
         
@@ -216,7 +225,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
         return current
     }
 
-    // MARK: Contains
+    // MARK: - Contains
     public func contains(_ value: T) -> Index? {
         
         var n = 0
@@ -238,7 +247,7 @@ public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
 // ==================
 //
 
-// MARK: ExpressibleByArrayLiteral
+// MARK: - ExpressibleByArrayLiteral
 extension DoublyLinkedList: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {
@@ -249,14 +258,14 @@ extension DoublyLinkedList: ExpressibleByArrayLiteral {
     }
 }
 
-// MARK: CustomStringConvertible
+// MARK: - CustomStringConvertible
 extension DoublyLinkedList: CustomStringConvertible {
     public var description: String {
         return "\(self.isEmpty ? "[]" : String(describing: head!))"
     }
 }
 
-// MARK: CustomDebugStringConvertible
+// MARK: - CustomDebugStringConvertible
 extension DoublyLinkedList: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = """
@@ -267,13 +276,13 @@ extension DoublyLinkedList: CustomDebugStringConvertible {
               - head: \(self.head == nil ? "nil" : String(describing: self.head!.value))
               - tail: \(self.tail == nil ? "nil" : String(describing: self.tail!.value))
               - isEmpty: \(self.isEmpty)
-              - hasSoloItem: \(self.hasSoloItem)
+              - hasSoloItem: \(self.hasSingleItem)
             """
         return description
     }
 }
 
-// MARK: RandomAccessCollection
+// MARK: - RandomAccessCollection
 extension DoublyLinkedList {
     
     public var startIndex: Index { return count - count }

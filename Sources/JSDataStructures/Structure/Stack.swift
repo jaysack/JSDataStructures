@@ -1,3 +1,10 @@
+//
+//  Stack.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
 
 import Foundation
 
@@ -9,19 +16,19 @@ import Foundation
 
 struct Stack<T>: Sequence {
 
-    // MARK: Init
+    // MARK: - Init
     public init() {
         self.elements = []
         self.count = 0
     }
 
-    // MARK: Properties
+    // MARK: - Properties
     public var elements: [T]
     public var count: Int
     public var peek: Element? { return elements.last }
     public var isEmpty: Bool { return elements.isEmpty }
     
-    // MARK: Methods
+    // MARK: - Mutating Methods
     // Push
     public mutating func push(_ value: T) {
         defer { count += 1 }
@@ -42,7 +49,7 @@ struct Stack<T>: Sequence {
 // ==================
 //
 
-// MARK: IteratorProtocol
+// MARK: - IteratorProtocol
 extension Stack: IteratorProtocol {
     public mutating func next() -> T? {
         guard count > 0 else { return nil }
@@ -51,14 +58,14 @@ extension Stack: IteratorProtocol {
     }
 }
 
-// MARK: CustomStringConvertible
+// MARK: - CustomStringConvertible
 extension Stack: CustomStringConvertible {
     public var description: String {
         return "\(self.elements.reversed())"
     }
 }
 
-// MARK: CustomDebugStringConvertible
+// MARK: - CustomDebugStringConvertible
 extension Stack: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = """
@@ -71,7 +78,7 @@ extension Stack: CustomDebugStringConvertible {
     }
 }
 
-// MARK: ExpressibleByArrayLiteral
+// MARK: - ExpressibleByArrayLiteral
 extension Stack: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {

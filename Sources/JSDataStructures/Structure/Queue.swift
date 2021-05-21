@@ -1,3 +1,10 @@
+//
+//  Queue.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
 
 import Foundation
 
@@ -9,19 +16,20 @@ import Foundation
 
 public struct Queue<T>: Sequence {
     
-    // MARK: Init
+    // MARK: - Init
     public init() {
         self.elements = []
         self.count = 0
     }
 
-    // MARK: Properties
+    // MARK: - Properties
     public var elements: [T]
     public var count: Int
     public var peek: Element? { return elements.first }
     public var isEmpty: Bool { return elements.isEmpty }
 
-    // MARK: Enqueue
+    // MARK: - Mutating Methods
+    // Enqueue
     @discardableResult
     public mutating func enqueue(_ value: T) -> Bool {
         elements.append(value)
@@ -29,7 +37,7 @@ public struct Queue<T>: Sequence {
         return true
     }
     
-    // MARK: Dequeue
+    // Dequeue
     @discardableResult
     public mutating func dequeue() -> T? {
         // Empty case
@@ -53,7 +61,7 @@ public struct Queue<T>: Sequence {
 // ==================
 //
 
-// MARK: IteratorProtocol
+// MARK: - IteratorProtocol
 extension Queue: IteratorProtocol {
     public mutating func next() -> T? {
         guard count > 0 else { return nil }
@@ -62,14 +70,14 @@ extension Queue: IteratorProtocol {
     }
 }
 
-// MARK: CustomStringConvertible
+// MARK: - CustomStringConvertible
 extension Queue: CustomStringConvertible {
     public var description: String {
         return "\(self.elements)"
     }
 }
 
-// MARK: CustomDebugStringConvertible
+// MARK: - CustomDebugStringConvertible
 extension Queue: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = """
@@ -82,7 +90,7 @@ extension Queue: CustomDebugStringConvertible {
     }
 }
 
-// MARK: ExpressibleByArrayLiteral
+// MARK: - ExpressibleByArrayLiteral
 extension Queue: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {

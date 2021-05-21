@@ -1,3 +1,10 @@
+//
+//  StackTests.swift
+//  JSDataStructures
+//
+//  Created by Jonathan Sack.
+//  Copyright © Jonathan Sack. All rights reserved.
+//
 
 import XCTest
 @testable import JSDataStructures
