@@ -85,7 +85,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertEqual(0, sut.count, "Doubly Linked List count should NOT have been decreased after attempting to pop last item in an empty list")
     }
     
-    // MARK: - 'hasSoloItem' property tests
+    // MARK: - 'hasSingleItem' property tests
     func testDoublyLinkedList_WhenCallingHasSoloItemOnEmptyList_ShouldReturnFalse() {
         // Arrange
         sut = DoublyLinkedList<Int>()
@@ -307,6 +307,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertNil(index, "Element (80) is not part of the doubly linked list but yet still return an index while it's not possible")
     }
 
+    // MARK: - 'ArrayLiteral' protocol tests
     func testDoublyLinkedList_BecauseOfArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
         // Arrange
         // ...
@@ -316,5 +317,17 @@ class DoublyLinkedListTests: XCTestCase {
         
         // Assert
         XCTAssertEqual(sut.peek, 1, "List peek should be 4 but it is not")
+    }
+    
+    // MARK: - 'RandomAccessCollection' protocol tests
+    func testDoublyLinkedList_WhenAccessingItemFromInvalidSubscript_ShouldFailPrecondition() {
+        // Arrange
+        // ...
+        
+        // Act
+        let itemAtSubscript = sut[2]
+        
+        // Assert
+        XCTAssertEqual(itemAtSubscript, 8, "Subscript at index '2' should be 8 but it is not")
     }
 }

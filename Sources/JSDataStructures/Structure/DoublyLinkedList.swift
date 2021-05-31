@@ -14,7 +14,7 @@ import Foundation
 // ==============
 //
 
-public struct DoublyLinkedList<T: Equatable>: RandomAccessCollection {
+public struct DoublyLinkedList<T: Equatable> {
     
     // MARK: Typealiases
     public typealias Element = T
@@ -276,29 +276,25 @@ extension DoublyLinkedList: CustomDebugStringConvertible {
               - head: \(self.head == nil ? "nil" : String(describing: self.head!.value))
               - tail: \(self.tail == nil ? "nil" : String(describing: self.tail!.value))
               - isEmpty: \(self.isEmpty)
-              - hasSoloItem: \(self.hasSingleItem)
+              - hasSingleItem: \(self.hasSingleItem)
             """
         return description
     }
 }
 
 // MARK: - RandomAccessCollection
-extension DoublyLinkedList {
-    
-    public var startIndex: Index { return count - count }
-    public var endIndex: Index { return count - 1 }
+extension DoublyLinkedList: RandomAccessCollection {
 
-    public func index(before i: Index) -> Index {
-        return i - 1
-    }
+    public var startIndex: Index { return 0 }       // ["A", "B", "C"] ---> start index: 0
+    public var endIndex: Index { return count } // ["A", "B", "C"] ---> end index: 2
 
-    public func index(after i: Index) -> Index {
-        return i + 1
-    }
+    public func index(before i: Index) -> Index { return i - 1 }
+    public func index(after i: Index) -> Index { return i + 1 }
 
     public subscript(position: Int) -> T {
         get {
-            precondition(indices.contains(position), "Doubly linked list \(String(describing: self)). Index \(position) is out-of-bounds")
+            print("INDICES: ", indices)
+            precondition(indices.contains(position), "Doubly Linked List \(String(describing: self)): index (\(position)) is out-of-bounds")
             return node(at: position)!.value
         }
     }
