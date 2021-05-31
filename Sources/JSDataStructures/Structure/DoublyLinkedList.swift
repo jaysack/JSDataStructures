@@ -32,13 +32,14 @@ public struct DoublyLinkedList<T: Equatable> {
     private var tail: Node<T>?
 
     // MARK: - Properties
-    public private(set) var count: Int
+    public var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
     public var hasSingleItem: Bool { return head === tail && !isEmpty }
 
     // MARK: - Push
-    public mutating func push(_ value: T) {
+    @discardableResult
+    public mutating func push(_ value: T) -> Node<T> {
 
         // Create node
         let node = Node(value)
@@ -60,10 +61,14 @@ public struct DoublyLinkedList<T: Equatable> {
             // activate/deactivate refs
             head = node
         }
+        
+        // Return node
+        return node
     }
 
     // MARK: - Append
-    public mutating func append(_ value: T) {
+    @discardableResult
+    public mutating func append(_ value: T) -> Node<T> {
 
         // Create node
         let node = Node(value)
@@ -82,6 +87,9 @@ public struct DoublyLinkedList<T: Equatable> {
             node.prev = tail
             tail = node
         }
+        
+        // Return node
+        return node
     }
     
     // MARK: - Insert at
@@ -205,6 +213,27 @@ public struct DoublyLinkedList<T: Equatable> {
 
         // Return value
         return current?.value
+    }
+    
+    // MARK: - Eject node
+    @discardableResult
+    public mutating func eject(_ node: Node<T>) -> T? {
+        
+        // Empty case
+        guard !isEmpty else { return nil }
+
+        // Solo case
+        guard !hasSingleItem else { return pop() }
+        
+        // Defer count decrease
+        defer { count -= 1 }
+
+        // Default case
+        node.prev?.next = node.next
+        node.next?.prev = node.prev
+        
+        // Return value
+        return node.value
     }
 
     // MARK: - Node at

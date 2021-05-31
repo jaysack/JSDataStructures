@@ -20,38 +20,48 @@ public struct LRUCache<T: Hashable>: Sequence {
     init(capacity: Int) {
         self.capacity = capacity
         self.list = DoublyLinkedList()
+        self.hashTable = [: ]
         self.count = 0
     }
     
     // MARK: - Properties
-    public private(set) var capacity: Int
-    public private(set) var count: Int
     public var peek: T? { return list.peek }
     private var list: DoublyLinkedList<T>
+    private var hashTable: [T: Node<T>]
+    public private(set) var capacity: Int
+    public private(set) var count: Int {
+        didSet {
+            if count > capacity { fatalError("LRU Cache Error: count did exceed capacity") }
+        }
+    }
 
     // MARK: - Methods
     // Insert
     public mutating func insert(_ value: T) {
-        // Add to head
-        list.push(value)
+        // Add to head and save
+        let node = list.push(value)
+        hashTable[value] = node
+
         // Defer count incrementation (count property should never exceed capacity)
         defer { count += 1 }
 
         // Remove tail if capacity reached
-        if count == capacity {
-            list.popLast()
+        if count == capacity, let lruValue = list.popLast() {
+            hashTable[lruValue] = nil
             count -= 1
         }
     }
    
     // Contains
     public mutating func contains(_ value: T) -> Bool {
-        // Get index
-        guard let index = list.contains(value) else { return false }
+        // Get old node
+        guard let node = hashTable[value] else { return false }
 
-        // Move node to front
-        guard let node = list.remove(at: index) else { return false }
-        list.push(node)
+        // Eject old node from DLL storage
+        list.eject(node)
+        
+        // Insert new node at head
+        hashTable[value] = list.push(node.value)
 
         // Return
         return true
