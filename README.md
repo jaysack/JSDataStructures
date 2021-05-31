@@ -57,15 +57,17 @@ import JSDataStructures
 
 ## 📚 Simple Structures
 ### Stack
-A **Stack** is what its name says it is: a stack!
+A **Stack** is what its name says it is: a stack!\
 It does conform to Apple's `Sequence` protocol and as such, gives you access to a large number of operations that you can perform on any sequence.
 ```swift
 var stack = Stack<Int>()
 stack.push(4)
 stack.push(8)
 stack.push(9)
+
 // Visual Representation ---> BOTTOM - 4 - 8 - 9 - TOP
 ```
+<br>
 
 Although this implementation works perfectly, you can take advantage of the `ExpressibleByArrayLiteral` protocol the stack conforms to and instantiate it with an array instead like in the example below:
 ```swift
@@ -76,8 +78,19 @@ var stack: Stack<Int> = [4, 8, 9]
 
 ### Queue
 A **Queue** is a pretty self-explanatory `Sequence` that allows you to:
-- `enqueue()` elements are the end of the queue
+- `enqueue(_ value: T)` elements are the end of the queue
 - `dequeue()` elements at the beginning of the queue
+```swift
+var queue = Queue<String>()
+queue.enqueue("Andre")
+queue.enqueue("Kate")
+queue.enqueue("Bob")
+queue.enqueue("Tajea")
+queue.dequeue()
+
+// Visual Representation ---> FRONT - Kate - Bob - Tajea - BACK
+
+```
 - - - -
 <br>
 
@@ -85,26 +98,26 @@ A **Queue** is a pretty self-explanatory `Sequence` that allows you to:
 The lists structures in **JSDataStructures** are implemented on top of the `Node` class to create references between list items.
 <br>
 ### Node
-A node has the properties below:
-- `value`: its payload
-- `prev`: its reference to its previous node
-- `next`: its reference to its following node
+A node has the following properties:
+- `value`   : its payload
+- `prev`     : its reference to its previous node
+- `next`     : its reference to its following node
 
 Please note, the reference to the next node is a `weak` reference to avoid retain cycles.\
-It also makes it easier to detach the last node in the list by assigning it a `nil` value (as opposed to breaking both references between the nodes).
+It makes it easier to detach the last node in the list by assigning it a `nil` value (as opposed to breaking both references between the nodes).
 
 ```swift
 let aNode = Node<String>("A")
 let bNode = Node<String>("B")
 
 aNode.next = bNode
-bNode.prev = aNode (Optional: you may not need this line depending on what you're working on)
 
 bNode = nil // No retain cycle here, the object is deallocated from memory 🙂 
 ```
+- - - -
 <br>
 
-### DoublyLinkedList
+### Doubly Linked List
 The **DoublyLinkedList** implementation in **JSDataStructure** adds and removes its extremity nodes with a time complexity of *O(1)* while insertion a node at a specific index will give you a time complexity of *O(n)*.
 ```swift
 var list = DoublyLinkedList<Int>()
@@ -121,6 +134,7 @@ list.insert(9, at: 2)   // O(n)
 ```swift
 let list: DoublyLinkedList<String> = ["a", "b", "c"]
 ```
+- - - -
 <br>
 
 ### LRU Cache
@@ -128,11 +142,14 @@ let list: DoublyLinkedList<String> = ["a", "b", "c"]
 ```swift
 // Instantiate
 lruCache = LRUCache<Int>(capacity: 2)
-lruCache.insert(3)  // ---> 3
-lruCache.insert(7)  // ---> 7 - 3
-lruCache.insert(8)  // ---> 8 - 7
-```
 
+lruCache.insert(3)      // ---> 3
+lruCache.insert(7)      // ---> 7 - 3
+lruCache.insert(8)      // ---> 8 - 7
+
+lruCache.contains(7)    // ---> 7 - 8
+```
+- - - -
 <br>
 
 ## 🌲 Trees
