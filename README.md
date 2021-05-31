@@ -160,6 +160,18 @@ lruCache.contains(7)    // ---> 7 - 8
 - - - -
 <br>
 
+## ✅ Tests
+All data structures in **JSDataStructures** have been thoroughly tested./
+To learn more about unit tests used for each structure select the appropriate link below
+- [Stack Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/StackTests.swift)
+- [Queue Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/QueueTests.swift)
+- [Doubly Linked List Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/DoublyLinkedListTests.swift)
+- [LRU Cache Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/LRUCacheTests.swift)
+- [Tree Node Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/TreeNodeTests.swift)
+- [BST Node Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/BSTNodeTests.swift)
+- - - -
+<br>
+
 ## ✉️ Author
 Jonathan Sack\
 dev@jonathansack.io
