@@ -61,11 +61,12 @@ A **Stack** is what its name says it is: a stack!\
 It does conform to Apple's `Sequence` protocol and as such, gives you access to a large number of operations that you can perform on any sequence.
 ```swift
 var stack = Stack<Int>()
+
 stack.push(4)
 stack.push(8)
 stack.push(9)
 
-// Visual Representation ---> BOTTOM - 4 - 8 - 9 - TOP
+// Visual Representation ---> BOTTOM | 4 - 8 - 9 | TOP
 ```
 <br>
 
@@ -78,17 +79,19 @@ var stack: Stack<Int> = [4, 8, 9]
 
 ### Queue
 A **Queue** is a pretty self-explanatory `Sequence` that allows you to:
-- `enqueue(_ value: T)` elements are the end of the queue
-- `dequeue()` elements at the beginning of the queue
+- `enqueue(_ value: T)` an element are the end of the queue
+- `dequeue()` an element from the beginning of the queue
 ```swift
 var queue = Queue<String>()
+
 queue.enqueue("Andre")
 queue.enqueue("Kate")
 queue.enqueue("Bob")
 queue.enqueue("Tajea")
+
 queue.dequeue()
 
-// Visual Representation ---> FRONT - Kate - Bob - Tajea - BACK
+// Visual Representation ---> FRONT | Kate - Bob - Tajea | BACK
 
 ```
 - - - -
@@ -138,7 +141,7 @@ let list: DoublyLinkedList<String> = ["a", "b", "c"]
 <br>
 
 ### LRU Cache
-**JSDataStructures** gives you a fast **LRU Cache** with O(1) operations for both checking and insertions.
+**JSDataStructures** gives you a fast **LRU Cache** with O(1) operations for both checking and inserting values.
 ```swift
 // Instantiate
 lruCache = LRUCache<Int>(capacity: 2)
