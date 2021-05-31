@@ -24,8 +24,8 @@ public struct LRUCache<T: Hashable>: Sequence {
     }
     
     // MARK: - Properties
-    public var capacity: Int
-    public var count: Int
+    public private(set) var capacity: Int
+    public private(set) var count: Int
     public var peek: T? { return list.peek }
     private var list: DoublyLinkedList<T>
 

@@ -32,7 +32,7 @@ public struct DoublyLinkedList<T: Equatable> {
     private var tail: Node<T>?
 
     // MARK: - Properties
-    public var count: Int
+    public private(set) var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
     public var hasSingleItem: Bool { return head === tail && !isEmpty }
@@ -285,8 +285,8 @@ extension DoublyLinkedList: CustomDebugStringConvertible {
 // MARK: - RandomAccessCollection
 extension DoublyLinkedList: RandomAccessCollection {
 
-    public var startIndex: Index { return 0 }       // ["A", "B", "C"] ---> start index: 0
-    public var endIndex: Index { return count } // ["A", "B", "C"] ---> end index: 2
+    public var startIndex: Index { return 0 }
+    public var endIndex: Index { return count }
 
     public func index(before i: Index) -> Index { return i - 1 }
     public func index(after i: Index) -> Index { return i + 1 }

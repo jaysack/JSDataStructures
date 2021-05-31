@@ -23,8 +23,8 @@ public struct Queue<T>: Sequence {
     }
 
     // MARK: - Properties
-    public var elements: [T]
-    public var count: Int
+    public private(set) var elements: [T]
+    public private(set) var count: Int
     public var peek: Element? { return elements.first }
     public var isEmpty: Bool { return elements.isEmpty }
 
