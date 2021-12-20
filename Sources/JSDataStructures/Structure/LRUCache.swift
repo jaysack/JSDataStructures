@@ -17,7 +17,7 @@ import Foundation
 public struct LRUCache<T: Hashable>: Sequence {
     
     // MARK: - Init
-    init(capacity: Int) {
+    public init(capacity: Int) {
         self.capacity = capacity
         self.list = DoublyLinkedList()
         self.hashTable = [: ]
