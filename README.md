@@ -67,6 +67,10 @@ stack.push(8)
 stack.push(9)
 
 // Visual Representation ---> BOTTOM | 4 - 8 - 9 | TOP
+
+stack.pop()
+
+// Visual Representation ---> BOTTOM | 4 - 8 | TOP
 ```
 <br>
 
@@ -88,6 +92,8 @@ queue.enqueue("Andre")
 queue.enqueue("Kate")
 queue.enqueue("Bob")
 queue.enqueue("Tajea")
+
+// Visual Representation ---> FRONT | Andre - Kate - Bob - Tajea | BACK
 
 queue.dequeue()
 
@@ -115,21 +121,41 @@ let bNode = Node<String>("B")
 
 aNode.next = bNode
 
-bNode = nil // No retain cycle here, the object is deallocated from memory 🙂 
+bNode = nil // No retain cycle here, the object is deallocated from memory 🙂
 ```
 - - - -
 <br>
 
 ### Doubly Linked List
 The **DoublyLinkedList** implementation in **JSDataStructure** adds and removes its extremity nodes with a time complexity of *O(1)* while insertion a node at a specific index will give you a time complexity of *O(n)*.
+
+#### Adding Elements
 ```swift
 var list = DoublyLinkedList<Int>()
 
 list.append(7)          // O(1)
+// Visual Representation ---> | 7 |
+
 list.push(4)            // O(1)
 list.push(1)            // O(1)
+// Visual Representation ---> | 1 - 4 - 7 |
 
 list.insert(9, at: 2)   // O(n)
+// Visual Representation ---> | 1 - 4 - 9 - 7 |
+```
+<br>
+
+#### Removing Elements
+```swift
+let a = list.pop()        // O(1)
+// a = 1
+// Visual Representation ---> | 4 - 9 - 7 |
+
+list.popLast()            // O(1)
+// Visual Representation ---> | 4 - 9 |
+
+list.remove(at: 1)        // O(n)
+// Visual Representation ---> | 4 |
 ```
 <br>
 
