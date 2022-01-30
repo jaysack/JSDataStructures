@@ -14,21 +14,23 @@ public protocol TreeNodeProtocol: AnyObject {
 
     var value: Value { get }
     var children: [Element] { get }
-    func isLeaf() -> Bool
-    func depth() -> Int
+    var isLeaf: Bool { get }
+    var height: Int { get }
 }
 
 // MARK: - EXT. Default Implementation
 public extension TreeNodeProtocol {
 
-    func isLeaf() -> Bool { return children.isEmpty }
-
-    func depth() -> Int {
+    var isLeaf: Bool {
+        return children.isEmpty
+    }
+    
+    var height: Int {
         // Leaf case
-        guard !isLeaf() else { return 1 }
-
+        guard !isLeaf else { return 0 }
+        
         // Default case
-        let childrenDepth = children.map { $0.depth() }
+        let childrenDepth = children.map { $0.height }
         return 1 + (childrenDepth.max() ?? 0)
     }
 }

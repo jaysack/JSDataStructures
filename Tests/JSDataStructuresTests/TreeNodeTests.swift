@@ -12,26 +12,43 @@ import XCTest
 class TreeNodeTests: XCTestCase {
 
     var root: TreeNode<Int>!
+    var one: TreeNode<Int>!
+    var two: TreeNode<Int>!
+    var three: TreeNode<Int>!
+    var seven: TreeNode<Int>!
+    var nine: TreeNode<Int>!
+    var ten: TreeNode<Int>!
+    var twelve: TreeNode<Int>!
     
     override func setUpWithError() throws {
-        
+        //       GRAPH
+        //
+        //         4
+        //       / | \
+        //      1  7  9
+        //     /     /  \
+        //    2     3    12
+        //         /
+        //        10
+        //
+
         // Root
         root = TreeNode<Int>(4)
         
         // Children
-        let one = TreeNode<Int>(1)
-        let seven = TreeNode<Int>(7)
-        let nine = TreeNode<Int>(9)
+        one = TreeNode<Int>(1)
+        seven = TreeNode<Int>(7)
+        nine = TreeNode<Int>(9)
         
         root.insert(one)
         root.insert(seven)
         root.insert(nine)
         
         // Other levels
-        let two = TreeNode<Int>(2)
-        let twelve = TreeNode<Int>(12)
-        let three = TreeNode<Int>(3)
-        let ten = TreeNode<Int>(10)
+        two = TreeNode<Int>(2)
+        twelve = TreeNode<Int>(12)
+        three = TreeNode<Int>(3)
+        ten = TreeNode<Int>(10)
         
         one.insert(two)
         nine.insert(twelve)
@@ -42,6 +59,13 @@ class TreeNodeTests: XCTestCase {
 
     override func tearDownWithError() throws {
         root = nil
+        one = nil
+        two = nil
+        three = nil
+        seven = nil
+        nine = nil
+        ten = nil
+        twelve = nil
     }
 
     func testTreeNode_WhenTraversingDepthFirst_ShouldReturnCorrectDepthFirstOrder() {
@@ -68,26 +92,26 @@ class TreeNodeTests: XCTestCase {
         XCTAssertEqual(levelOrder, validOrder, "Depth first traversal returned an invalid order")
     }
 
-    func testTreeNode_WhenGettingDepthForLeafNode_ShouldReturnOne() {
+    func testTreeNode_WhenGettingHeightOfLeafNode_ShouldReturnZero() {
         // Arrange
-        root = TreeNode<Int>(5)
+        assert(two.isLeaf)
         
         // Act
-        let depth = root.depth()
+        let height = two.height
         
         // Assert
-        XCTAssertEqual(depth, 1, "Depth of leaf node should be 1 but it is not")
+        XCTAssertEqual(height, 0, "Height of leaf node should be 0 but it is not")
     }
     
-    func testTreeNode_WhenGettingDepth_ShouldReturnCorrectDepthValue() {
+    func testTreeNode_WhenGettingHeight_ShouldReturnCorrectDepthValue() {
         // Arrange
-        assert(root.children.count == 3)
+        assert(!root.isLeaf)
         
         // Act
-        let depth = root.depth()
-        
+        let height = root.height
+
         // Assert
-        XCTAssertEqual(depth, 4, "Depth of root node should be 4 but it is not")
+        XCTAssertEqual(height, 3, "Depth of root node should be 3 but it is not")
     }
 
 }
