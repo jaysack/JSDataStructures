@@ -103,7 +103,7 @@ class TreeNodeTests: XCTestCase {
         XCTAssertEqual(height, 0, "Height of leaf node should be 0 but it is not")
     }
     
-    func testTreeNode_WhenGettingHeight_ShouldReturnCorrectDepthValue() {
+    func testTreeNode_WhenGettingHeightOfNonLeafNode_ShouldReturnCorrectDepthValue() {
         // Arrange
         assert(!root.isLeaf)
         
@@ -112,6 +112,28 @@ class TreeNodeTests: XCTestCase {
 
         // Assert
         XCTAssertEqual(height, 3, "Depth of root node should be 3 but it is not")
+    }
+
+    func testTreeNode_WhenGettingDepthOfRootNode_ShouldReturnZero() {
+        // Arrange
+        assert(root.parent == nil)
+        
+        // Act
+        let depth = root.depth
+        
+        // Assert
+        XCTAssertEqual(depth, 0, "Depth of root node should be 0 but it is not")
+    }
+    
+    func testTreeNode_WhenGettingHeightOfNonRootNode_ShouldReturnCorrectDepthValue() {
+        // Arrange
+        assert(twelve.parent != nil)
+        
+        // Act
+        let depth = twelve.depth
+
+        // Assert
+        XCTAssertEqual(depth, 2, "Depth of node twelve should be 2 but it is not")
     }
 
 }

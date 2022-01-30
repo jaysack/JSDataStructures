@@ -23,11 +23,13 @@ final public class TreeNode<T>: TraversableTreeNode {
     // MARK: - Properties
     public var value: Value
     public var children: [Element]
+    public weak var parent: Element?
     
     // MARK: - Mutation Methods
     // Add
     @discardableResult
     public func insert(_ child: Element) -> Bool {
+        child.parent = self
         children.append(child)
         return true
     }

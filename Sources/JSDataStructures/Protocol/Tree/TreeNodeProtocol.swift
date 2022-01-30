@@ -14,7 +14,9 @@ public protocol TreeNodeProtocol: AnyObject {
 
     var value: Value { get }
     var children: [Element] { get }
+    var parent: Element? { get }
     var isLeaf: Bool { get }
+    var depth: Int { get }
     var height: Int { get }
 }
 
@@ -23,6 +25,11 @@ public extension TreeNodeProtocol {
 
     var isLeaf: Bool {
         return children.isEmpty
+    }
+    
+    var depth: Int {
+        guard let parent = parent else { return 0 }
+        return parent.depth + 1
     }
     
     var height: Int {
