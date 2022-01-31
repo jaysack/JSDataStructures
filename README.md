@@ -182,12 +182,50 @@ lruCache.contains(7)    // ---> 7 - 8
 <br>
 
 ## 🌲 Trees
-// TBD
-- - - -
+A tree is a hierarchical data structure with a root value and subtrees of children with a parent node, represented as a set of **TreeNode** generic objects.
+Each **TreeNode** owns a reference to its parent (if any) and its children
+
+```swift
+let root = TreeNode<Int>(4)
+let one = TreeNode<Int>(1)
+let seven = TreeNode<Int>(7)
+
+root.insert(one)
+root.insert(seven)
+
+let childrenValue = root.children.map { $0.value }
+print(childrenValue)        // ---> [1, 7]
+
+print(seven.parent.value)   // ---> 4
+print(root.parent)          // ---> nil
+```
+
+Trees in **JSDataStructures** comes in three different forms:
+- Simple Tree: using a **TreeNode** as node object
+- Binary Searh Tree: using a **BSTNode** as node object
+- Self-balancing Binary Searh Tree: using an **AVLNode** as node object **(COMING SOON)**
 <br>
 
+### Simple Tree
+A tree node has the following properties
+- `value`    : its payload
+- `parent`   : its reference to its parent node
+- `children` : its reference to its children nodes
+
+Please note, like in the linked node, that the reference to the parent node is a `weak` reference to avoid retain cycles.
+
+### Binary Search Tree
+A **BSTNode** is a node inheriting from the **TreeNode** class.
+However, a BSTNode can only have at most two children:
+- one **left** child with a value smaller than the node payload  
+- one **right** child with a value higher than the node payload
+
+This small but important distinction between the two, allows for a much faster interactions in Binary Search Trees
+// TBD
+- - - -
+
 ## ✅ Tests
-All data structures in **JSDataStructures** have been thoroughly tested./
+All data structures in **JSDataStructures** have been thoroughly tested.
 To learn more about unit tests used for each structure select the appropriate link below
 - [Stack Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/StackTests.swift)
 - [Queue Tests](https://github.com/jaysack/JSDataStructures/blob/master/Tests/JSDataStructuresTests/QueueTests.swift)
