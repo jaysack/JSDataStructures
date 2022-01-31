@@ -1,7 +1,7 @@
 # JSDataStructures
 
 ![Version](https://img.shields.io/badge/SPM-v2.0.0-blue)
-![Tests](https://github.com/jaysack/JSDataStructures/workflows/ci.yml/badge.svg)
+![Tests](https://github.com/jaysack/JSDataStructures/workflows/CI/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 **JSDataStructures** is a collection of production grade data structures for the Swift programming language.
