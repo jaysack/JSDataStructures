@@ -47,7 +47,7 @@
 ## 📥 Installation
 JSDataStructures is available through [Swift Package Manager](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app). Simply add the line below in your Package.swift dependencies.
 ```swift
-.package(url: "https://github.com/jaysack/JSDataStructures", from: "1.0.0"),
+.package(url: "https://github.com/jaysack/JSDataStructures", from: "2.0.0"),
 ```
 Once this is done, import the library as follow in your Swift file:
 ```swift
