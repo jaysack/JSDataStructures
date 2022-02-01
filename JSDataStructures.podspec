@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "JSDataStructures"
-  spec.version      = "2.0.0"
+  spec.version      = "2.1.0"
   spec.summary      = "JSDataStructures is a collection of production grade data structures for the Swift programming language."
 
   # This description is used to generate tags and improve search results.
