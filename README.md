@@ -83,7 +83,7 @@ var stack: Stack<Int> = [4, 8, 9]
 
 ### Queue
 A **Queue** is a pretty self-explanatory `Sequence` that allows you to:
-- `enqueue(_ value: T)` an element are the end of the queue
+- `enqueue(_ value: T)` an element at the end of the queue
 - `dequeue()` an element from the beginning of the queue
 ```swift
 var queue = Queue<String>()

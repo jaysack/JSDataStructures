@@ -14,7 +14,7 @@ import Foundation
 // ==============
 //
 
-struct Stack<T>: Sequence {
+public struct Stack<T>: Sequence {
 
     // MARK: - Init
     public init() {
