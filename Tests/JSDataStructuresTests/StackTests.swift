@@ -91,20 +91,23 @@ class StackTests: XCTestCase {
         XCTAssertEqual(4, sut.count, "Stack count should have been increased to 4 after pushing element but it was not")
     }
 
-    func testStack_BecauseOfSequenceProtocol_ShouldBeTraversableInReverseWithAForInLoop() {
+    func testStack_SequenceProtocol_ShouldBeTraversableWithAForInLoop() {
         // Arrange
-        var reversedLoopResult: [Int] = []
+        var result: [Int] = []
         
         // Act
         for element in sut {
-            reversedLoopResult.append(element)
+            result.append(element)
+        }
+        for element in sut {
+            result.append(element)
         }
         
         // Assert
-        XCTAssertEqual(reversedLoopResult.reversed(), sut.elements, "For loop should traverse the sequence in reversed order but it did not")
+        XCTAssertEqual(result, [9, 8, 4, 9, 8, 4], "For in loop should traverse the sequence in top to bottom order but it did not")
     }
 
-    func testStack_BecauseOfArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
+    func testStack_ArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
         // Arrange
         // ...
         
@@ -112,10 +115,10 @@ class StackTests: XCTestCase {
         sut = [4, 8, 9]
         
         // Assert
-        XCTAssertEqual([4, 8, 9], sut.elements.reversed(), "Elements should be initiated from array literal but it did not work")
+        XCTAssertEqual([9, 8, 4], sut.reversed(), "Elements should be initiated from array literal but it did not work")
     }
 
-    func testStack_BecauseOfArrayLiteralProtocol_ShouldPlaceArrayFirstElementOnTop() {
+    func testStack_ArrayLiteralProtocol_ShouldPlaceArrayFirstElementOnTop() {
         // Arrange
         // ...
         

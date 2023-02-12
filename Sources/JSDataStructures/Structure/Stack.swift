@@ -17,21 +17,19 @@ import Foundation
 public struct Stack<T>: Sequence {
 
     // MARK: - Init
-    public init() {
-        self.elements = []
-        self.count = 0
+    public init(_ elements: [T] = []) {
+        self.elements = elements.reversed()
     }
 
     // MARK: - Properties
-    public private(set) var elements: [T]
-    public private(set) var count: Int
-    public var peek: Element? { return elements.last }
-    public var isEmpty: Bool { return elements.isEmpty }
+    private var elements: [T]
+    public var count: Int { elements.count }
+    public var peek: Element? { elements.last }
+    public var isEmpty: Bool { elements.isEmpty }
     
     // MARK: - Mutating Methods
     // Push
     public mutating func push(_ value: T) {
-        defer { count += 1 }
         elements.append(value)
     }
 
@@ -39,7 +37,6 @@ public struct Stack<T>: Sequence {
     @discardableResult
     public mutating func pop() -> T? {
         guard !isEmpty else { return nil }
-        defer { count -= 1 }
         return elements.popLast()
     }
 }
@@ -53,16 +50,14 @@ public struct Stack<T>: Sequence {
 // MARK: - IteratorProtocol
 extension Stack: IteratorProtocol {
     public mutating func next() -> T? {
-        guard count > 0 else { return nil }
-        defer { count -= 1 }
-        return elements[count - 1]
+        return pop()
     }
 }
 
 // MARK: - CustomStringConvertible
 extension Stack: CustomStringConvertible {
     public var description: String {
-        return "\(self.elements.reversed())"
+        return "\(reversed())"
     }
 }
 
@@ -70,10 +65,9 @@ extension Stack: CustomStringConvertible {
 extension Stack: CustomDebugStringConvertible {
     public var debugDescription: String {
         let description = """
-            STACK: \(self.reversed())
+            STACK: \(self.description)
               - count: \(self.count)
               - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
-              - isEmpty: \(self.isEmpty)
             """
         return description
     }
@@ -83,9 +77,6 @@ extension Stack: CustomDebugStringConvertible {
 extension Stack: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {
-        self.init()
-        for element in elements.reversed() {
-            self.push(element)
-        }
+        self.init(elements)
     }
 }
