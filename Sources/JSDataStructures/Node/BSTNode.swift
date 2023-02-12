@@ -15,8 +15,10 @@ public class BSTNode<T: Comparable>: TraversableBinaryNode {
     public typealias Element = BSTNode<T>
 
     // MARK: - Init
-    public init(_ value: Value) {
+    public init(_ value: Value, left: Element? = nil, right: Element? = nil) {
         self.value = value
+        self.left = left
+        self.right = right
     }
 
     // MARK: - Properties

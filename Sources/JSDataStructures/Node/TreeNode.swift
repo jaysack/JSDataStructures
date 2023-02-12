@@ -15,9 +15,9 @@ final public class TreeNode<T>: TraversableTreeNode {
     public typealias Element = TreeNode<T>
     
     // MARK: - Init
-    public init(_ value: Value) {
+    public init(_ value: Value, children: [Element] = []) {
         self.value = value
-        self.children = []
+        self.children = children
     }
     
     // MARK: - Properties

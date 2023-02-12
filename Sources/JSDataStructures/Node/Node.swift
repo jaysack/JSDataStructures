@@ -20,8 +20,10 @@ final public class Node<T>: LinkNodeProtocol {
     public typealias Element = Node<T>
     
     // MARK: - Init
-    public init(_ value: T) {
+    public init(_ value: T, prev: Element? = nil, next: Element? = nil) {
         self.value = value
+        self.prev = prev
+        self.next = next
     }
     
     // MARK: - Properties
