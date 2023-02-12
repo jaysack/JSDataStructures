@@ -59,27 +59,30 @@ class QueueTests: XCTestCase {
         XCTAssertEqual(person, "Andre", "Andre should have been dequeued but he was not")
     }
 
-    func testQueue_BecauseOfSequenceProtocol_ShouldBeTraversableInReverseWithAForInLoop() {
+    func testQueue_SequenceProtocol_ShouldBeTraversableInReverseWithAForInLoop() {
         // Arrange
-        var reversedLoopResult: [String] = []
+        var result: [String] = []
         
         // Act
         for element in sut {
-            reversedLoopResult.append(element)
+            result.append(element)
         }
         
         // Assert
-        XCTAssertEqual(reversedLoopResult.reversed(), sut.elements, "For loop should traverse the sequence in reversed order but it did not")
+        XCTAssertEqual(result, ["Andre", "Kate", "Bob", "Tajea"], "For in loops should traverse the sequence in order but it did not")
     }
 
-    func testQueue_BecauseOfArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
+    func testQueue_ArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
         // Arrange
-        // ...
-        
-        // Act
+        var result: [String] = []
         sut = ["Andre", "Kate", "Bob", "Tajea"]
         
+        // Act
+        for element in sut {
+            result.append(element)
+        }
+        
         // Assert
-        XCTAssertEqual(["Andre", "Kate", "Bob", "Tajea"], sut.elements, "Elements should be initiated from array literal but it did not work")
+        XCTAssertEqual(["Andre", "Kate", "Bob", "Tajea"], result, "Elements should be initiated from array literal but it did not work")
     }
 }

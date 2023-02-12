@@ -107,4 +107,20 @@ class LRUCacheTests: XCTestCase {
         // Assert
         XCTAssertFalse(boolean, "Checking invalid item should return false but it returned true")
     }
+
+    func testLRUCache_SequenceProtocol_ShouldBeTraversableWithAForInLoop() {
+        // Arrange
+        var result: [Int] = []
+        
+        // Act
+        for element in sut {
+            result.append(element)
+        }
+        for element in sut {
+            result.append(element)
+        }
+        
+        // Assert
+        XCTAssertEqual(result, [15, 8, 7, 3, 15, 8, 7, 3], "For in loop should traverse the sequence in recent to oldest order but it did not")
+    }
 }
