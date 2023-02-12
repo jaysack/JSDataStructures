@@ -38,6 +38,7 @@ public struct Stack<T>: Sequence {
     // Pop
     @discardableResult
     public mutating func pop() -> T? {
+        guard !isEmpty else { return nil }
         defer { count -= 1 }
         return elements.popLast()
     }

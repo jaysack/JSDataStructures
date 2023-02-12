@@ -67,6 +67,18 @@ class StackTests: XCTestCase {
         // Assert
         XCTAssertEqual(2, sut.count, "Stack count should have been decrease to 2 after popping an element")
     }
+
+    func testStack_GivenAnEmptyStackWhenPoppingElement_CountShouldNotDecrease() {
+        // Arrange
+        sut = Stack<Int>()
+        assert(sut.count == 0)
+        
+        // Act
+        sut.pop()
+        
+        // Assert
+        XCTAssertEqual(0, sut.count, "Stack count should have NOT been decrease when popping an element in an empty stack")
+    }
     
     func testStack_WhenPushingElement_CountShouldIncrease() {
         // Arrange
