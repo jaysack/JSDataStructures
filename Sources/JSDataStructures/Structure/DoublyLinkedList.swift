@@ -14,17 +14,21 @@ import Foundation
 // ==============
 //
 
-public struct DoublyLinkedList<T: Equatable> {
+public struct DoublyLinkedList<T: Equatable>: Sequence {
     
     // MARK: Typealiases
     public typealias Element = T
     public typealias Index = Int
     
     // MARK: - Init
-    public init() {
+    public init(_ elements: [T] = []) {
+        // Set properties
         head = nil
         tail = nil
         count = 0
+        
+        // Set defaults elements
+        elements.forEach { append($0) }
     }
 
     // MARK: - Nodes
@@ -32,10 +36,10 @@ public struct DoublyLinkedList<T: Equatable> {
     private var tail: Node<T>?
 
     // MARK: - Properties
-    public var count: Int
+    public private(set) var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
-    public var hasSingleItem: Bool { return head === tail && !isEmpty }
+    private var hasSingleItem: Bool { return head === tail && !isEmpty }
 
     // MARK: - Push
     @discardableResult
@@ -97,7 +101,7 @@ public struct DoublyLinkedList<T: Equatable> {
     public mutating func insert(_ value: T, at index: Int) -> Bool {
 
         // Out of bounds case (including negative indexes)
-        guard (index >= 0) && (index < count) else { return false }
+        guard (0 ..< count).contains(index) else { return false }
         
         // Create node
         let node = Node(value)
@@ -193,7 +197,7 @@ public struct DoublyLinkedList<T: Equatable> {
     public mutating func remove(at index: Int) -> T? {
         
         // Guard out of bounds (including negative indexes)
-        guard (index >= 0) && (index < count) else { return nil }
+        guard (0 ..< count).contains(index) else { return nil }
 
         // Defer count decrease
         defer { count -= 1 }
@@ -240,7 +244,7 @@ public struct DoublyLinkedList<T: Equatable> {
     public func node(at index: Int) -> Node<T>? {
 
         // Guard out of bounds (including negative indexes)
-        guard (index >= 0) && (index < count) else { return nil }
+        guard (0 ..< count).contains(index) else { return nil }
         
         var n = 0
         var current = head
@@ -280,10 +284,14 @@ public struct DoublyLinkedList<T: Equatable> {
 extension DoublyLinkedList: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {
-        self.init()
-        for element in elements {
-            self.append(element)
-        }
+        self.init(elements)
+    }
+}
+
+// MARK: - IteratorProtocol
+extension DoublyLinkedList: IteratorProtocol {
+    public mutating func next() -> T? {
+        return pop()
     }
 }
 
@@ -304,8 +312,6 @@ extension DoublyLinkedList: CustomDebugStringConvertible {
               - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
               - head: \(self.head == nil ? "nil" : String(describing: self.head!.value))
               - tail: \(self.tail == nil ? "nil" : String(describing: self.tail!.value))
-              - isEmpty: \(self.isEmpty)
-              - hasSingleItem: \(self.hasSingleItem)
             """
         return description
     }
@@ -322,7 +328,6 @@ extension DoublyLinkedList: RandomAccessCollection {
 
     public subscript(position: Int) -> T {
         get {
-            print("INDICES: ", indices)
             precondition(indices.contains(position), "Doubly Linked List \(String(describing: self)): index (\(position)) is out-of-bounds")
             return node(at: position)!.value
         }

@@ -77,9 +77,9 @@ public struct LRUCache<T: Hashable>: Sequence {
 // MARK: - IteratorProtocol
 extension LRUCache: IteratorProtocol {
     public mutating func next() -> T? {
-        guard count > 0 else { return nil }
+        guard let item = list.pop() else { return nil }
         defer { count -= 1 }
-        return list[count - 1]
+        return item
     }
 }
 

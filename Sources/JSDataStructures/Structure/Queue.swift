@@ -17,14 +17,13 @@ import Foundation
 public struct Queue<T>: Sequence {
     
     // MARK: - Init
-    public init() {
-        self.elements = []
-        self.count = 0
+    public init(_ elements: [T]) {
+        self.elements = elements
     }
 
     // MARK: - Properties
-    public private(set) var elements: [T]
-    public private(set) var count: Int
+    private var elements: [T]
+    public var count: Int { return elements.count }
     public var peek: Element? { return elements.first }
     public var isEmpty: Bool { return elements.isEmpty }
 
@@ -33,7 +32,6 @@ public struct Queue<T>: Sequence {
     @discardableResult
     public mutating func enqueue(_ value: T) -> Bool {
         elements.append(value)
-        defer { count += 1 }
         return true
     }
     
@@ -46,9 +44,6 @@ public struct Queue<T>: Sequence {
         // Default case
         guard let head = elements.first else { return nil }
         elements = Array(elements.dropFirst())
-
-        // Update count
-        defer { count -= 1 }
 
         // Return head
         return head
@@ -64,9 +59,7 @@ public struct Queue<T>: Sequence {
 // MARK: - IteratorProtocol
 extension Queue: IteratorProtocol {
     public mutating func next() -> T? {
-        guard count > 0 else { return nil }
-        defer { count -= 1 }
-        return elements[count - 1]
+        return dequeue()
     }
 }
 
@@ -84,7 +77,6 @@ extension Queue: CustomDebugStringConvertible {
             QUEUE: \(self)
               - count: \(self.count)
               - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
-              - isEmpty: \(self.isEmpty)
             """
         return description
     }
@@ -94,9 +86,6 @@ extension Queue: CustomDebugStringConvertible {
 extension Queue: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {
-        self.init()
-        for element in elements {
-            self.enqueue(element)
-        }
+        self.init(elements)
     }
 }
