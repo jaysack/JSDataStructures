@@ -33,13 +33,13 @@ class LRUCacheTests: XCTestCase {
     // MARK: - 'insert' property tests
     func testLRUCache_WhenInsertingElement_ShouldReplacePeekValue() {
         // Arrange
-        let oldPeek = sut.peek
+        let oldPeek = sut.peek()
 
         // Act
         sut.insert(99)
 
         // Assert
-        XCTAssertNotEqual(oldPeek, sut.peek, "Peek should have been replaced after insertion but it was not")
+        XCTAssertNotEqual(oldPeek, sut.peek(), "Peek should have been replaced after insertion but it was not")
     }
 
     func testLRUCache_WhenInsertingElement_ShouldIncreaseCount() {
@@ -68,7 +68,7 @@ class LRUCacheTests: XCTestCase {
     // MARK: - 'contains' property tests
     func testLRUCache_WhenCheckingForValidElement_ShouldUpdatePeekValue() {
         // Arrange
-        let oldPeekValue = sut.peek
+        let oldPeekValue = sut.peek()
 
         // Act
         _ = sut.contains(8)
@@ -79,13 +79,13 @@ class LRUCacheTests: XCTestCase {
 
     func testLRUCache_WhenCheckingForInvalidElement_ShouldNotUpdatePeekValue() {
         // Arrange
-        let oldPeekValue = sut.peek
+        let oldPeekValue = sut.peek()
 
         // Act
         _ = sut.contains(-8)
 
         // Assert
-        XCTAssertEqual(oldPeekValue, sut.peek, "Peek value should NOT have been updated after checking for invalid item")
+        XCTAssertEqual(oldPeekValue, sut.peek(), "Peek value should NOT have been updated after checking for invalid item")
     }
 
     func testLRUCache_WhenCheckingForValidElement_ShouldReturnTrue() {
