@@ -295,8 +295,22 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertNil(index, "Element (80) is not part of the doubly linked list but yet still return an index while it's not possible")
     }
 
+    // MARK: - 'Sequence' protocol tests
+    func testDoublyLinkedList_SequenceProtocol_ShouldBeTraversableWithAForInLoop() {
+        // Arrange
+        var result: [Int] = []
+        
+        // Act
+        for element in sut {
+            result.append(element)
+        }
+        
+        // Assert
+        XCTAssertEqual(result, [3, 7, 8, 15], "For in loop should traverse the sequence in top to bottom order but it did not")
+    }
+
     // MARK: - 'ArrayLiteral' protocol tests
-    func testDoublyLinkedList_BecauseOfArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
+    func testDoublyLinkedList_ArrayLiteralProtocol_ShouldBeInitiableUsingAnArray() {
         // Arrange
         // ...
         

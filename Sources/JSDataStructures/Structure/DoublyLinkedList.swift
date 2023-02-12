@@ -14,17 +14,21 @@ import Foundation
 // ==============
 //
 
-public struct DoublyLinkedList<T: Equatable> {
+public struct DoublyLinkedList<T: Equatable>: Sequence {
     
     // MARK: Typealiases
     public typealias Element = T
     public typealias Index = Int
     
     // MARK: - Init
-    public init() {
+    public init(_ elements: [T] = []) {
+        // Set properties
         head = nil
         tail = nil
         count = 0
+        
+        // Set defaults elements
+        elements.forEach { append($0) }
     }
 
     // MARK: - Nodes
@@ -280,10 +284,14 @@ public struct DoublyLinkedList<T: Equatable> {
 extension DoublyLinkedList: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = T
     public init(arrayLiteral elements: T...) {
-        self.init()
-        for element in elements {
-            self.append(element)
-        }
+        self.init(elements)
+    }
+}
+
+// MARK: - IteratorProtocol
+extension DoublyLinkedList: IteratorProtocol {
+    public mutating func next() -> T? {
+        return pop()
     }
 }
 
@@ -304,8 +312,6 @@ extension DoublyLinkedList: CustomDebugStringConvertible {
               - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
               - head: \(self.head == nil ? "nil" : String(describing: self.head!.value))
               - tail: \(self.tail == nil ? "nil" : String(describing: self.tail!.value))
-              - isEmpty: \(self.isEmpty)
-              - hasSingleItem: \(self.hasSingleItem)
             """
         return description
     }
@@ -322,7 +328,6 @@ extension DoublyLinkedList: RandomAccessCollection {
 
     public subscript(position: Int) -> T {
         get {
-            print("INDICES: ", indices)
             precondition(indices.contains(position), "Doubly Linked List \(String(describing: self)): index (\(position)) is out-of-bounds")
             return node(at: position)!.value
         }
