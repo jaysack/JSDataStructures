@@ -25,7 +25,6 @@ public struct LRUCache<T: Hashable>: Sequence {
     }
     
     // MARK: - Properties
-    public var peek: T? { return list.peek }
     private var list: DoublyLinkedList<T>
     private var hashTable: [T: Node<T>]
     public private(set) var capacity: Int
@@ -36,6 +35,11 @@ public struct LRUCache<T: Hashable>: Sequence {
     }
 
     // MARK: - Methods
+    // Peek
+    public func peek() -> T? {
+        return list.peek
+    }
+
     // Insert
     public mutating func insert(_ value: T) {
         // Add to head and save
@@ -98,7 +102,7 @@ extension LRUCache: CustomDebugStringConvertible {
               - list: \(self.list)
               - count: \(self.count)
               - capacity: \(self.capacity)
-              - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
+              - peek: \(self.peek() == nil ? "nil" : String(describing: self.peek()!))
             """
         return description
     }
