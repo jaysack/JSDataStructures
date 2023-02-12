@@ -32,10 +32,10 @@ public struct DoublyLinkedList<T: Equatable> {
     private var tail: Node<T>?
 
     // MARK: - Properties
-    public var count: Int
+    public private(set) var count: Int
     public var peek: T? { return head?.value }
     public var isEmpty: Bool { return head == nil }
-    public var hasSingleItem: Bool { return head === tail && !isEmpty }
+    private var hasSingleItem: Bool { return head === tail && !isEmpty }
 
     // MARK: - Push
     @discardableResult
@@ -97,7 +97,7 @@ public struct DoublyLinkedList<T: Equatable> {
     public mutating func insert(_ value: T, at index: Int) -> Bool {
 
         // Out of bounds case (including negative indexes)
-        guard (index >= 0) && (index < count) else { return false }
+        guard (0 ..< count).contains(index) else { return false }
         
         // Create node
         let node = Node(value)
@@ -193,7 +193,7 @@ public struct DoublyLinkedList<T: Equatable> {
     public mutating func remove(at index: Int) -> T? {
         
         // Guard out of bounds (including negative indexes)
-        guard (index >= 0) && (index < count) else { return nil }
+        guard (0 ..< count).contains(index) else { return nil }
 
         // Defer count decrease
         defer { count -= 1 }
@@ -240,7 +240,7 @@ public struct DoublyLinkedList<T: Equatable> {
     public func node(at index: Int) -> Node<T>? {
 
         // Guard out of bounds (including negative indexes)
-        guard (index >= 0) && (index < count) else { return nil }
+        guard (0 ..< count).contains(index) else { return nil }
         
         var n = 0
         var current = head

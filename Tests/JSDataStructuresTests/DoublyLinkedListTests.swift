@@ -91,33 +91,21 @@ class DoublyLinkedListTests: XCTestCase {
         sut = DoublyLinkedList<Int>()
         
         // Act
-        let boolean = sut.hasSingleItem
+        // ..
         
         // Assert
-        XCTAssertEqual(boolean, false, "Empty doubly linked list should not have a solo item but it is not the case")
+        XCTAssertNotEqual(sut.count, 1, "Empty doubly linked list should not have a solo item but it is not the case")
     }
     
-    func testDoublyLinkedList_WhenCallingHasSoloItemOnNonEmptyList_ShouldReturnFalse() {
-        // Arrange
-        assert(sut.count == 4)
-        
-        // Act
-        let boolean = sut.hasSingleItem
-        
-        // Assert
-        XCTAssertEqual(boolean, false, "Non empty doubly linked list should have more than 1 solo item")
-    }
-    
-    func testDoublyLinkedList_WhenCallingHasSoloItemOnSingleItemList_ShouldReturnTrue() {
+    func testDoublyLinkedList_GivenOneItem_ShouldReturnCorrectCount() {
         // Arrange
         sut = DoublyLinkedList<Int>()
-        sut.append(3)
         
         // Act
-        let boolean = sut.hasSingleItem
+        sut.append(3)
         
         // Assert
-        XCTAssertEqual(boolean, true, "Solo item list should have only 1 element")
+        XCTAssertEqual(sut.count, 1, "Solo item list should have only 1 element")
     }
 
     // MARK: - 'push' method tests
@@ -196,7 +184,7 @@ class DoublyLinkedListTests: XCTestCase {
         // Arrange
         sut = DoublyLinkedList<Int>()
         sut.append(4)
-        assert(sut.hasSingleItem)
+        assert(sut.count == 1)
 
         // Act
         let endIndex = sut.count - 1
@@ -235,7 +223,7 @@ class DoublyLinkedListTests: XCTestCase {
         // Arrange
         sut = DoublyLinkedList<Int>()
         sut.append(4)
-        assert(sut.hasSingleItem)
+        assert(sut.count == 1)
 
         // Act
         let endIndex = sut.count - 1
