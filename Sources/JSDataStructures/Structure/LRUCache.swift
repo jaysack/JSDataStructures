@@ -25,14 +25,17 @@ public struct LRUCache<T: Hashable>: Sequence {
     }
     
     // MARK: - Properties
-    private var list: DoublyLinkedList<T>
-    private var hashTable: [T: Node<T>]
+    // Public
+    public var isEmpty: Bool { count == 0 }
     public private(set) var capacity: Int
     public private(set) var count: Int {
         didSet {
             if count > capacity { fatalError("LRU Cache Error: count did exceed capacity") }
         }
     }
+    // Private
+    private var list: DoublyLinkedList<T>
+    private var hashTable: [T: Node<T>]
 
     // MARK: - Methods
     // Peek
