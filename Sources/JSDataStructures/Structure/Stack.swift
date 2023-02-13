@@ -22,7 +22,7 @@ public struct Stack<T>: Sequence {
     }
 
     // MARK: - Properties
-    private var elements: [T]
+    public private(set) var elements: [T]
     public var count: Int { elements.count }
     public var peek: Element? { elements.last }
     public var isEmpty: Bool { elements.isEmpty }
