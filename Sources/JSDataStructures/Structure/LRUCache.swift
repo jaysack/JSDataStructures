@@ -40,7 +40,7 @@ public struct LRUCache<T: Hashable>: Sequence {
     // MARK: - Methods
     // Peek
     public func peek() -> T? {
-        return list.peek
+        return list.head?.value
     }
 
     // Insert

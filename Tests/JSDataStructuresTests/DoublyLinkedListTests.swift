@@ -318,7 +318,7 @@ class DoublyLinkedListTests: XCTestCase {
         sut = [1, 2, 3, 4]
         
         // Assert
-        XCTAssertEqual(sut.peek, 1, "List peek should be 4 but it is not")
+        XCTAssertEqual(sut.head?.value, 1, "List peek should be 4 but it is not")
     }
     
     // MARK: - 'RandomAccessCollection' protocol tests

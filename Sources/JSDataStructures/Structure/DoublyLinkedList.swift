@@ -32,13 +32,12 @@ public struct DoublyLinkedList<T: Equatable>: Sequence {
     }
 
     // MARK: - Nodes
-    private var head: Node<T>?
-    private var tail: Node<T>?
+    public private(set) var head: Node<T>?
+    public private(set) var tail: Node<T>?
 
     // MARK: - Properties
     public private(set) var count: Int
-    public var peek: T? { return head?.value }
-    public var isEmpty: Bool { return head == nil }
+    public var isEmpty: Bool { return count == 0 }
     private var hasSingleItem: Bool { return head === tail && !isEmpty }
 
     // MARK: - Push
@@ -309,7 +308,6 @@ extension DoublyLinkedList: CustomDebugStringConvertible {
             DOUBLY LINKED LIST
               - list: \(self)
               - count: \(self.count)
-              - peek: \(self.peek == nil ? "nil" : String(describing: self.peek!))
               - head: \(self.head == nil ? "nil" : String(describing: self.head!.value))
               - tail: \(self.tail == nil ? "nil" : String(describing: self.tail!.value))
             """
