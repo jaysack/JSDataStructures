@@ -48,9 +48,9 @@ class TreeNodeTests: XCTestCase {
         
         // Other levels
         two = TreeNode<Int>(2)
-        twelve = TreeNode<Int>(12)
-        three = TreeNode<Int>(3)
-        ten = TreeNode<Int>(10)
+        twelve = TreeNode<Int>(12, weight: 2)
+        three = TreeNode<Int>(3, weight: 1)
+        ten = TreeNode<Int>(10, weight: 3)
         
         one.insert(two)
         nine.insert(twelve)
@@ -178,4 +178,17 @@ class TreeNodeTests: XCTestCase {
         XCTAssertEqual(depth, 2, "Depth of node twelve should be 2 but it is not")
     }
 
+    // MARK: - Weight Tests
+    func testTreeNode_WhenInsertingADirectChildNode_ParentWeightShouldIncreasebyChildWeightValue() {
+        // Arrange
+        assert(root.parent == nil)
+        // Act
+        let rootWeight = root.weight
+        let threeWeight = three.weight
+        let nineWeight = nine.weight
+        // Assert
+        XCTAssertEqual(rootWeight, 0, "Root weight should be 3 but it is not")
+        XCTAssertEqual(threeWeight, 4, "Three-node weight should be 3 but it is not")
+        XCTAssertEqual(nineWeight, 3, "Nine-node weight should be 3 but it is not")
+    }
 }
