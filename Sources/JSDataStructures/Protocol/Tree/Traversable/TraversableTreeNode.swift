@@ -14,6 +14,8 @@ public protocol TraversableTreeNode: TreeNodeProtocol where Element: Traversable
     @inlinable func filterLevelOrder(_ isIncluded: (Element) throws -> Bool) rethrows -> [Element]
     @inlinable func mapDepthFirst<T>(_ transform: (Element) throws -> T) rethrows -> [T]
     @inlinable func mapLevelOrder<T>(_ transform: (Element) throws -> T) rethrows -> [T]
+    @inlinable func findDepthFirst(_ isIncluded: (Element) throws -> Bool) rethrows -> Element?
+    @inlinable func findLevelOrder(_ isIncluded: (Element) throws -> Bool) rethrows -> Element?
 }
 
 // MARK: - EXT. Traversal Methods
@@ -34,6 +36,17 @@ public extension TraversableTreeNode where Self == Element {
             result.append($0)
         }
         return result
+    }
+
+    // Find
+    @inlinable func findDepthFirst(_ isIncluded: (Element) throws -> Bool) rethrows -> Element? {
+        if try isIncluded(self) { return self }
+        for child in children {
+            if let found = try child.findDepthFirst(isIncluded) {
+                return found
+            }
+        }
+        return nil
     }
 
     // Map
@@ -77,5 +90,16 @@ public extension TraversableTreeNode where Self == Element {
             result.append(transformedElement)
         }
         return result
+    }
+
+    // Find
+    @inlinable func findLevelOrder(_ isIncluded: (Element) throws -> Bool) rethrows -> Element? {
+        var queue = Queue<Element>()
+        queue.enqueue(self)
+        while let node = queue.dequeue() {
+            if try isIncluded(node) { return node }
+            node.children.forEach { queue.enqueue($0) }
+        }
+        return nil
     }
 }
