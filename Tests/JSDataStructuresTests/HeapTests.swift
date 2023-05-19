@@ -94,6 +94,18 @@ class HeapTests: XCTestCase {
         XCTAssertNil(removedItem, "Nil should be returned when attempting to remove from empty heap")
     }
 
+    func testHeap_WhenRemovingItem_ShouldReturnTheHighestElement() {
+        // Arrange
+        sut = Heap(sort: >)
+        [12, 23, 9, 15, 3].forEach { sut.insert($0) }
+        
+        // Act
+        let highestElement = sut.remove()
+        
+        // Assert
+        XCTAssertEqual(highestElement, 23, "Removing heap's highest value should return 9 but it did not")
+    }
+
     // MARK: Sequence Tests
     func testHeap_GivenMaxHeapAndSequenceProtocol_ReturnItems_InMaxOrder() {
         // Arrange
