@@ -37,3 +37,25 @@ final public class TreeNode<T>: TraversableTreeNode {
         return true
     }
 }
+
+// MARK: EXT. Value == Equatable
+public extension TreeNode where Value: Equatable {
+    // Remove
+    @discardableResult
+    func removeFirst(_ child: Element) -> Bool {
+        if let index = children.firstIndex(where: { $0.value == child.value }) {
+            children.remove(at: index)
+            return true
+        }
+        return false
+    }
+    
+    // Remove all
+    @discardableResult
+    func removeAll(_ child: Element) -> Bool {
+        let childrenCount = children.count
+        children.removeAll(where: { $0.value == child.value })
+        let updatedChildrenCount = children.count
+        return updatedChildrenCount < childrenCount
+    }
+}
